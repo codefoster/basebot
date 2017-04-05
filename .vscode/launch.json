@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/server.js",
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "NODE_ENV": "production",
+                "MICROSOFT_APP_ID": "YOUR_BOT_ID",
+                "MICROSOFT_APP_PASSWORD":"YOUR_BOT_PASSWORD",
+                "LUIS_ENDPOINT": "YOUR_LUIS_ENDPOINT",
+                "QNA_ID":"YOUR_QNA_ID",
+                "QNA_KEY":"YOUR_QNA_KEY"
+            }
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Process",
+            "port": 5858
+        }
+    ]
+}
