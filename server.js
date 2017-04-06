@@ -19,16 +19,13 @@ let connector = new builder.ChatConnector({
 
 
 let bot = new builder.UniversalBot(connector, function (session) {
+     //session.preferredLocale("en");
+     //if you want them to select their locale then call this
+     session.beginDialog('/localePicker');
      session.send("greeting");
-     session.preferredLocale("es");
-     session.beginDialog('/default')
+     //session.beginDialog('/default')
     });
 
-// Configure bots default locale and locale folder path.
-bot.set('localizerSettings', {
-    botLocalePath: "./locale", 
-    defaultLocale: "es" 
-});
     
 //events
 //Call getFileNames to 
