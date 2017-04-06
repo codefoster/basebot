@@ -16,8 +16,20 @@ let connector = new builder.ChatConnector({
     appPassword: envx("MICROSOFT_APP_PASSWORD")
 });
 
-let bot = new builder.UniversalBot(connector, session => session.beginDialog('/default'));
 
+
+let bot = new builder.UniversalBot(connector, function (session) {
+     session.send("greeting");
+     session.preferredLocale("es");
+     session.beginDialog('/default')
+    });
+
+// Configure bots default locale and locale folder path.
+bot.set('localizerSettings', {
+    botLocalePath: "./locale", 
+    defaultLocale: "es" 
+});
+    
 //events
 //Call getFileNames to 
 getFileNames('./app/events')

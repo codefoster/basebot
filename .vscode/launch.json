@@ -9,8 +9,8 @@
             "cwd": "${workspaceRoot}",
             "env": {
                 "NODE_ENV": "production",
-                "MICROSOFT_APP_ID": "YOUR_BOT_ID",
-                "MICROSOFT_APP_PASSWORD":"YOUR_BOT_PASSWORD",
+                "MICROSOFT_APP_ID": "",
+                "MICROSOFT_APP_PASSWORD":"",
                 "LUIS_ENDPOINT": "YOUR_LUIS_ENDPOINT",
                 "QNA_ID":"YOUR_QNA_ID",
                 "QNA_KEY":"YOUR_QNA_KEY"

@@ -25,14 +25,16 @@ module.exports = function (name, bot) {
             session.endDialog();
         }
     ])
-        .triggerAction({ //should this dialog be triggered?
+/*        .triggerAction({ //should this dialog be triggered?
             onFindAction: function (context, callback) {
                 let version = context.userData.version || 0;
                 callback(null, (version < 1.0 ? 1.1 : 0.0));// 1.1 and 0.0 is confidence in the match 1.1 is strong
             }
-        })
+        })*/
 
 };
+
+//uncomment the triggerAction if you watnt to do a firstRun
 
 //purpose of trigger action is to determine if this dialog gets triggered when and action fires
 //in case of matches its simple, because if the action that fires matches name then it triggers
