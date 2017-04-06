@@ -3,7 +3,7 @@ module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
      function (session) {
         // Prompt the user to select their preferred locale
-        builder.Prompts.choice(session, "What's your preferred language?", 'English|Español|Italiano');
+        builder.Prompts.choice(session, "locale_prompt", 'English|Español');
     },
         function (session, results) {
         // Update preferred locale
@@ -11,16 +11,15 @@ module.exports = function (name, bot) {
         switch (results.response.entity) {
             case 'English':
                 locale = 'en';
+                break;
             case 'Español':
                 locale = 'es';
-            case 'Italiano':
-                locale = 'it';
                 break;
         }
         session.preferredLocale(locale, function (err) {
             if (!err) {
                 // Locale files loaded
-                session.endDialog("Your preferred language is now %s.", results.response.entity);
+                session.endDialog("locale_updated", results.response.entity);
             } else {
                 // Problem loading the selected locale
                 session.error(err);

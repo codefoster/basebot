@@ -1,5 +1,6 @@
 {
-    "greeting": ["Welcome to the localization sample bot.", "Hey there. I'm the localization sample bot.", "Greetings... I'm the localization sample bot."],
+    "confused": "Sorry, I didn't understand you or maybe just lost track of our conversation",
+    "greeting": ["Welcome to the botstarter bot.", "Hey there. I'm the botstarter bot.", "Greetings... I'm the botstarter bot."],
     "instructions": "This demo will first ask you to select a preferred language and then walk through using all of the built-in prompts in that language.",
     "locale_prompt": "What's your preferred language?",
     "locale_updated": "Your preferred language is now english.",
