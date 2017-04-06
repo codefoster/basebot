@@ -25,8 +25,35 @@ let bot = new builder.UniversalBot(connector, function (session) {
     if (!session.userData['BotBuilder.Data.PreferredLocale']) {
         session.beginDialog('/localePicker');
     }
+    var address = JSON.parse(req.body.address);
+    var notification = 'Hello from bot';
+    var params = req.body.params;
+
+    // Send notification as a proactive message
+    bot.beginDialog(address, '/notify', { msgId: notification, params: params });
+    res.status(200);
+    res.end();
+});
+// On UserAddedToConversation
+bot.on('UserAddedToConversation', function(message) {
+    bot.send("Hello user");
+    console.log('[UserAddedToConversation] called');
 });
 
+// On BotAddedToConversation
+bot.on('BotAddedToConversation', function(message) {
+    console.log('[BotAddedToConversation] called');
+});
+bot.configure({
+    userWelcomeMessage: "Hello... Welcome to the group.",
+    groupWelcomeMessage: "Hello Group!",
+    goodbyeMessage: "Goodbye..."
+});
+
+bot.dialog('/notify', function (session, args) {
+    // Deliver notification to the user.
+    session.endDialog(args.msgId, args.params);
+});
 
 //events
 //Call getFileNames to 
