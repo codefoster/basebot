@@ -13,46 +13,18 @@ const envx = require("envx");
 
 let connector = new builder.ChatConnector({
     appId: envx("MICROSOFT_APP_ID"),
-    appPassword: envx("MICROSOFT_APP_PASSWORD")
+    appPassword: envx("MICROSOFT_APP_PASSWORD"),
+    userWelcomeMessage: "Hello... Welcome to the group."
 });
-
-
 
 let bot = new builder.UniversalBot(connector, function (session) {
     //You can either set your preferred Locale like this (default is en if you dont do anything)
-    //session.preferredLocale("en");
+    session.preferredLocale("en");
     //if you want them to select their locale then call this
-    if (!session.userData['BotBuilder.Data.PreferredLocale']) {
+/*    if (!session.userData['BotBuilder.Data.PreferredLocale']) {
         session.beginDialog('/localePicker');
-    }
-    var address = JSON.parse(req.body.address);
-    var notification = 'Hello from bot';
-    var params = req.body.params;
-
-    // Send notification as a proactive message
-    bot.beginDialog(address, '/notify', { msgId: notification, params: params });
-    res.status(200);
-    res.end();
-});
-// On UserAddedToConversation
-bot.on('UserAddedToConversation', function(message) {
-    bot.send("Hello user");
-    console.log('[UserAddedToConversation] called');
-});
-
-// On BotAddedToConversation
-bot.on('BotAddedToConversation', function(message) {
-    console.log('[BotAddedToConversation] called');
-});
-bot.configure({
-    userWelcomeMessage: "Hello... Welcome to the group.",
-    groupWelcomeMessage: "Hello Group!",
-    goodbyeMessage: "Goodbye..."
-});
-
-bot.dialog('/notify', function (session, args) {
-    // Deliver notification to the user.
-    session.endDialog(args.msgId, args.params);
+    } */
+    session.beginDialog('/default');
 });
 
 //events
@@ -82,7 +54,9 @@ bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
 //serve the bot
 let server = restify.createServer();
 server.post('/api/messages', connector.listen());
-server.listen(process.env.port || process.env.PORT || 3978);
+server.listen(process.env.port || process.env.PORT || 3978,function () {
+    console.log('%s listening to %s', server.name, server.url);
+});
 
 
 //Takes a directory and using fs to loop through the files in the directory
