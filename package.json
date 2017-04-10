@@ -10,6 +10,7 @@
     "lodash": "^4.17.4",
     "nlp_compromise": "^6.5.3",
     "phone-regex": "^2.0.0",
+    "readdir-enhanced": "^1.4.5",
     "restify": "^4.1.1",
     "uuid": "^3.0.1"
   },
