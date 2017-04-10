@@ -1,6 +1,6 @@
 let builder = require('botbuilder');
 
-module.exports = function (name, bot) {
+module.exports = function(name, bot, ba){
     bot.on(name, function (message) {
         if (message.action === 'add') {
             var name = message.user ? message.user.name : null;

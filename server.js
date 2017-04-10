@@ -28,6 +28,22 @@ let bot = new builder.UniversalBot(connector, function (session) {
     session.beginDialog('/default');
 });
 
+// Initialize with the strategies we want to use
+var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSITE_HOSTNAME, secret: BOTAUTH_SECRET })
+    .provider("mercadolibre", (options) => {
+        return new MercadoLibreStrategy({
+            clientID: MERCADOLIBRE_APP_ID,
+            clientSecret: MERCADOLIBRE_SECRET_KEY,
+            scope: ['read_public', 'read_relationships'],
+            callbackURL: options.callbackURL
+        }, (accessToken, refreshToken, profile, done) => {
+            profile = profile || {};
+            profile.accessToken = accessToken;
+            profile.refreshToken = refreshToken;
+            return done(null, profile);
+        });
+    });
+
 //events
 getFileNames('./app/events')
     .map(file => Object.assign(file, { fx: require(file.path) }))
@@ -38,10 +54,10 @@ getFileNames('./app/events')
 getFileNames('./app/recognizers')
     .map(file => Object.assign(file, { recognizer: require(file.path) }))
     .forEach(r => bot.recognizer(r.recognizer));
-
+//dialogs
 getFileNames('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(dialog => dialog.fx || dialog.fx(dialog.name, bot));
+    .forEach(dialog => dialog.fx || dialog.fx(dialog.name, bot, ba));
 
 // middleware
 bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
