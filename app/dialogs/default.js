@@ -1,3 +1,3 @@
-module.exports = function(name, bot, ba){
+module.exports = function(name, bot){
     bot.dialog(`/$`)
 }

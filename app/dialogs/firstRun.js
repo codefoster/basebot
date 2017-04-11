@@ -3,7 +3,7 @@ let sampleService = require('../services/sampleService')
 //using lodash to seach in list
 let _ = require('lodash');
 
-module.exports = function(name, bot, ba){
+module.exports = function(name, bot){
     bot.dialog(`/${name}`, [
         function (session, args, next) {
             session.userData.version = 1.0;

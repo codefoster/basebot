@@ -1,5 +1,5 @@
 let builder = require("botbuilder")
-module.exports = function(name, bot, ba){
+module.exports = function(name, bot){
     bot.dialog(`/${name}`, [
      function (session) {
         // Prompt the user to select their preferred locale

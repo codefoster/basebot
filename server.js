@@ -8,9 +8,20 @@ let _ = require('lodash');
 let fs = require('fs');
 let path = require('path');
 let readdir = require('readdir-enhanced');
+let botauth = require('botauth');
 //envx confirms the existence of a environment variable and if it
 //doesnt exist it will show a friendly error message
 const envx = require("envx");
+const passport = require("passport");
+const MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
+const WEBSITE_HOSTNAME = envx("WEB_HOSTNAME");
+//oauth details for Mercado Libre
+const MERCADOLIBRE_APP_ID = envx("MERCADOLIBRE_APP_ID");
+const MERCADOLIBRE_SECRET_KEY = envx("MERCADOLIBRE_SECRET_KEY");
+
+//encryption key for saved state
+const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
+
 
 let connector = new builder.ChatConnector({
     appId: envx("MICROSOFT_APP_ID"),
@@ -25,8 +36,17 @@ let bot = new builder.UniversalBot(connector, function (session) {
     /*    if (!session.userData['BotBuilder.Data.PreferredLocale']) {
             session.beginDialog('/localePicker');
         } */
-    session.beginDialog('/default');
+    session.beginDialog('/profile',{});
 });
+
+//serve the bot
+let server = restify.createServer();
+server.post('/api/messages', connector.listen());
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+    console.log('%s listening to %s', server.name, server.url);
+});
+server.use(restify.bodyParser());
+server.use(restify.queryParser());
 
 // Initialize with the strategies we want to use
 var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSITE_HOSTNAME, secret: BOTAUTH_SECRET })
@@ -44,6 +64,10 @@ var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSI
         });
     });
 
+module.exports = {
+    botAuth: ba
+}
+
 //events
 getFileNames('./app/events')
     .map(file => Object.assign(file, { fx: require(file.path) }))
@@ -57,7 +81,7 @@ getFileNames('./app/recognizers')
 //dialogs
 getFileNames('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(dialog => dialog.fx || dialog.fx(dialog.name, bot, ba));
+    .forEach(dialog => dialog.fx(dialog.name, bot));
 
 // middleware
 bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
@@ -65,12 +89,6 @@ bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
 
-//serve the bot
-let server = restify.createServer();
-server.post('/api/messages', connector.listen());
-server.listen(process.env.port || process.env.PORT || 3978, function () {
-    console.log('%s listening to %s', server.name, server.url);
-});
 
 
 //Takes a directory and using fs to loop through the files in the directory
@@ -83,3 +101,4 @@ function getFileNames(dir) {
         .filter(item => !fs.statSync(item).isDirectory() && /.js$/.test(item)) //filter out directories
         .map(file => ({ name: path.basename(file, '.js'), path: file }))
 }
+

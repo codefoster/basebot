@@ -5,16 +5,18 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/app.js",
+            "program": "${workspaceRoot}/server.js",
             "cwd": "${workspaceRoot}",
             "env": {
                 "NODE_ENV": "production",
-                "MICROSOFT_APP_ID": "f8642351-2c05-475e-8292-3c207ca45e39",
-                "MICROSOFT_APP_PASSWORD":"VQCBfG3hb9zUQ7gZm6yadPS",
+                "MICROSOFT_APP_ID": "e5a8f9c1-16d4-493b-8122-0914d594f25b",
+                "MICROSOFT_APP_PASSWORD":"NWDkJogxUcJ9pRewjF40Pey",
                 "MERCADOLIBRE_APP_ID": "6625605128449727",
                 "MERCADOLIBRE_SECRET_KEY":"4HJ8OTNGL6foz0kk14gq14ZJXJDtZafe",
                 "WEB_HOSTNAME":"myml.ngrok.io",
                 "WEBSITE_HOSTNAME": "myml.ngrok.io",
+                "QNA_ID": "e7dd3748-2963-49ab-afd0-fc2e462c9506",
+                "QNA_KEY": "0259cbb5ff1c490eb202f66be9a9cd9b",
                 "BOTAUTH_SECRET": "12345678" 
                     }
         },
