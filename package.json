@@ -6,7 +6,6 @@
   "dependencies": {
     "botauth": "^0.2.12",
     "botbuilder": "^3.7",
-    "botbuilder-cognitiveservices": "^1.0.1",
     "envx": "^1.0.0",
     "lodash": "^4.17.4",
     "nlp_compromise": "^6.5.3",

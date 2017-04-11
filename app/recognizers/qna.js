@@ -1,7 +1,7 @@
 //this recognizer requires a modified version of the botbuilder-cognitiveservices module
 //currently living at http://github.com/codefoster/botbuilder-cognitiveservices
 //clone repo  - git clone http://github.com/codefoster/botbuilder-cognitiveservices
-//In a command window navigate to that repo run :    npm link
+//In a command window navigate to the NODE folder in that repo and run :    npm link
 //In a command window navigate to this project (botstarter) run npm link botbuilder-cognitiveservices
 
 //You will also need to add your keys from QnAMaker

@@ -5,6 +5,5 @@ module.exports = function(name, bot){
         function (session, args, next) {
             session.send(args.intent.answer);
         }
-    ])
-        .triggerAction({ matches: name })
+    ]).triggerAction({ matches: name })
 };

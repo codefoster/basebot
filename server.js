@@ -36,7 +36,7 @@ let bot = new builder.UniversalBot(connector, function (session) {
     /*    if (!session.userData['BotBuilder.Data.PreferredLocale']) {
             session.beginDialog('/localePicker');
         } */
-    session.beginDialog('/profile',{});
+    //session.beginDialog('/profile',{});
 });
 
 //serve the bot
@@ -83,8 +83,25 @@ getFileNames('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
     .forEach(dialog => dialog.fx(dialog.name, bot));
 
+const logUserConversation = (event) => {
+    console.log('message: ' + event.text + ', user: ' + event.address.user.name);
+};
+
 // middleware
 bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
+
+
+// Middleware for logging
+bot.use({
+    receive: function (event, next) {
+        logUserConversation(event);
+        next();
+    },
+    send: function (event, next) {
+        logUserConversation(event);
+        next();
+    }
+});
 
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
