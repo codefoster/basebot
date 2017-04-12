@@ -9,6 +9,10 @@ let fs = require('fs');
 let path = require('path');
 let readdir = require('readdir-enhanced');
 let botauth = require('botauth');
+let util = require('util');
+
+// This loads the environment variables from the .env file
+require('dotenv-extended').load();
 //envx confirms the existence of a environment variable and if it
 //doesnt exist it will show a friendly error message
 const envx = require("envx");
@@ -22,8 +26,7 @@ const MERCADOLIBRE_SECRET_KEY = envx("MERCADOLIBRE_SECRET_KEY");
 //encryption key for saved state
 const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
 
-// This loads the environment variables from the .env file
-require('dotenv-extended').load();
+
 
 let connector = new builder.ChatConnector({
     appId: envx("MICROSOFT_APP_ID"),
@@ -113,6 +116,19 @@ bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
             if (identity.id === message.address.bot.id) {
+
+                fs.readFile('./app/images/MercadoLibre_logo.PNG', function (err, data) {
+                    var contentType = 'image/png';
+                    var base64 = Buffer.from(data).toString('base64');
+                    var msg = new builder.Message()
+                        .address(message.address)
+                        .addAttachment({
+                            contentUrl: util.format('data:%s;base64,%s', contentType, base64),
+                            contentType: contentType,
+                            name: 'MercadoLibreLogo.png'
+                        })
+                    bot.send(msg);
+                });
                 var reply = new builder.Message()
                     .address(message.address)
                     .text('Hi! I am Mercado Libre Bot. I can find you  products. Try saying show me cameras.');
