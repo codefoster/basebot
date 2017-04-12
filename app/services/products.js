@@ -4,7 +4,10 @@ module.exports = {
     searchProducts: function (product) {
         return new Promise(function (resolve) {
 
-            // Filling the products results manually just for demo purposes
+
+            
+//Below will work with sample data
+/*            // Filling the products results manually just for demo purposes
             var products = [];
             for (var i = 1; i <= 5; i++) {
                 products.push({
@@ -20,7 +23,7 @@ module.exports = {
             products.sort(function (a, b) { return a.priceStarting - b.priceStarting; });
 
             // complete promise with a timer to simulate async response
-            setTimeout(function () { resolve(products); }, 1000);
+            setTimeout(function () { resolve(products); }, 1000);*/
         });
     },
 

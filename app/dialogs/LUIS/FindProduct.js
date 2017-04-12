@@ -1,64 +1,40 @@
+let app = require('../../../server');
+let restify = require('restify');
 let builder = require('botbuilder');
-let Products = require('../../services/products')
-//let search = require('../../services/search');
-//let displayProducts = require('../../helpers/displayProducts');
 
 module.exports = function (name, bot) {
-    bot.dialog(`/${name}`, [
-        function (session, args, next) {
-            session.sendTyping();
-            //If we are in here we are on the FindProduct Intent
-            session.send('Welcome to the MercadoLibre finder! We are analyzing your message: \'%s\'', session.message.text);
-            //see if we have the ProductType entity
-            var productEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'ProductType')
-            //if we have it
-            if (productEntity) {
-                session.dialogData.searchType = 'product';
-                next({ response: productEntity.entity });
-
-            } else {
-                //Dont know what they are searching for. 
-                builder.Prompts.text(session, 'Please enter what you are searching for')
-            }
-
-            //session.endDialog(`${name}`);
-        },
+    bot.dialog(`/${name}`, [].concat(
+        app.botAuth.authenticate("mercadolibre"),
         function (session, results) {
-            var product = results.response;
+            //get the pinterest profile
+            var user = app.botAuth.profile(session, "mercadolibre");
 
-            var message = 'Looking for %s...';
-            session.send(message, product);
+            //call pinterest and get something using user.accessToken
+            var client = restify.createJsonClient({
+                url: 'https://api.mercadolibre.com',
+                accept: 'application/json',
+            });
 
-            // Async search
-            Products
-                .searchProducts(product)
-                .then(function (products) {
-                    // args
-                    session.send('I found %d products:', products.length);
-
-                    var message = new builder.Message()
-                        .attachmentLayout(builder.AttachmentLayout.carousel)
-                        .attachments(products.map(productAsAttachment));
-
-                    session.send(message);
-
-                    // End
-                    session.endDialog();
-                });
+            var mercadoLibreUrl = '/users/'+ user.id + '?access_token=' + user.accessToken;
+            client.get(mercadoLibreUrl, (err, req, res, obj) => {
+                if (!err) {
+                    console.log(obj);
+                    var msg = new builder.Message()
+                        .attachments([
+                            new builder.HeroCard(session)
+                                .text(user.first_name + ' ' + user.last_name)
+/*                                .images([
+                                    new builder.CardImage(session).url(obj.data.image['60x60'].url)
+                                ]
+                                )*/
+                        ]
+                        );
+                    session.endDialog(msg);
+                } else {
+                    console.log(err);
+                    session.endDialog("error getting profile");
+                }
+            });
         }
-    ]).triggerAction({ matches: name })
+    )).triggerAction({ matches: name })
 };
-
-// Helpers
-function productAsAttachment(product) {
-    return new builder.HeroCard()
-        .title(product.name)
-        .subtitle('%d stars. %d reviews. $%d .', product.rating, product.numberOfReviews, product.priceStarting)
-        .images([new builder.CardImage().url(product.image)])
-        .buttons([
-            new builder.CardAction()
-                .title('More details')
-                .type('openUrl')
-                .value('https://www.bing.com/search?q=products+in+' + encodeURIComponent(product.location))
-        ]);
-}
