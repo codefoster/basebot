@@ -22,6 +22,8 @@ const MERCADOLIBRE_SECRET_KEY = envx("MERCADOLIBRE_SECRET_KEY");
 //encryption key for saved state
 const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
 
+// This loads the environment variables from the .env file
+require('dotenv-extended').load();
 
 let connector = new builder.ChatConnector({
     appId: envx("MICROSOFT_APP_ID"),
@@ -105,6 +107,20 @@ bot.use({
 
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
+
+//Sends greeting message when the bot is first added to a conversation
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                var reply = new builder.Message()
+                    .address(message.address)
+                    .text('Hi! I am Mercado Libre Bot. I can find you  products. Try saying show me cameras.');
+                bot.send(reply);
+            }
+        });
+    }
+});
 
 
 
