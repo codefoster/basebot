@@ -5,15 +5,13 @@ module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [].concat(
         ba.authenticate("mercadolibre"),
         function (session, results) {
-            //get the pinterest profile
+            //get the mercadolibre profile
             var user = ba.profile(session, "mercadolibre");
-
-            //call pinterest and get something using user.accessToken
+            //call mercadolibre and get something using user.accessToken
             var client = restify.createJsonClient({
                 url: 'https://api.mercadolibre.com',
                 accept: 'application/json',
             });
-
             var mercadoLibreUrl = '/users/'+ user.id + '?access_token=' + user.accessToken;
             client.get(mercadoLibreUrl, (err, req, res, obj) => {
                 if (!err) {
@@ -31,7 +29,6 @@ module.exports = function (name, bot, ba) {
                     session.endDialog(msg);
                 } else {
                     console.log(err);
-                    session.reset();
                     session.endDialog("error getting profile, typing 'logout' to try again");
                 }
             });
