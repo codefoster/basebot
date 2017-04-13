@@ -16,6 +16,7 @@
     "readdir-enhanced": "^1.4.5",
     "request-promise-native": "^1.0.3",
     "restify": "^4.1.1",
+    "string": "^3.3.3",
     "uuid": "^3.0.1"
   },
   "devDependencies": {},
