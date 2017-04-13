@@ -1,3 +1,5 @@
+let builder = require('botbuilder');
+
 module.exports = function (name, bot) {
     bot.on(name, function (event) {
         bot.send(new builder.Message()
