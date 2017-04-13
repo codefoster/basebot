@@ -106,7 +106,7 @@ bot.use({
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
 
-//Sends greeting message when the bot is first added to a conversation
+/*//Sends greeting message when the bot is first added to a conversation
 bot.on('conversationUpdate', function (message) {
     if (message.membersAdded) {
         message.membersAdded.forEach(function (identity) {
@@ -133,7 +133,7 @@ bot.on('conversationUpdate', function (message) {
     }
 });
 
-
+*/
 
 //Takes a directory and using fs to loop through the files in the directory
 //this is how we get the names of our dialogs. By looking at the file names in the dialogs folder
