@@ -33,5 +33,5 @@ module.exports = function (name, bot, ba) {
                 }
             });
         }
-    )).triggerAction({ matches: /profile/i })
+    )).triggerAction({matches:name});
 };

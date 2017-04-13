@@ -6,7 +6,7 @@ module.exports = function(name, bot, ba){
         session.endDialog('Everything has been wiped out')
     })
         .triggerAction({
-            matches: /delete all/i,
+            matches: name,
             confirmPrompt: "This will wipe everything out. Are you sure?"
         })
 }
