@@ -10,5 +10,5 @@ module.exports = function(name, bot, ba){
                 session.endDialog("you're still logged in");
             }
         }
-    ]).triggerAction({matches:/logout/i})
+    ]).triggerAction({matches:name})
 };
