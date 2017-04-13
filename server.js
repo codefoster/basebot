@@ -120,11 +120,11 @@ bot.on('conversationUpdate', function (message) {
         });
     }
 });
-
+*/
 
 //takes a directory and using fs to loop through the files in the directory
 //this is how we get the names of our dialogs, recognizers, etc. By looking at the file names in the dialogs folder
-=======
+
 
 //filter by .js files 
 function getFileNames(dir) {
