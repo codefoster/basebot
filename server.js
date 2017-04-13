@@ -12,25 +12,23 @@ let botauth = require('botauth');
 let util = require('util');
 
 // This loads the environment variables from the .env file
-require('dotenv-extended').load();
-//envx confirms the existence of a environment variable and if it
-//doesnt exist it will show a friendly error message
-const envx = require("envx");
+require('dotenv').config()
+
 const passport = require("passport");
 const MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
-const WEBSITE_HOSTNAME = envx("WEB_HOSTNAME");
+const WEBSITE_HOSTNAME = process.env.WEB_HOSTNAME;
 //oauth details for Mercado Libre
-const MERCADOLIBRE_APP_ID = envx("MERCADOLIBRE_APP_ID");
-const MERCADOLIBRE_SECRET_KEY = envx("MERCADOLIBRE_SECRET_KEY");
+const MERCADOLIBRE_APP_ID = process.env.MERCADOLIBRE_APP_ID;
+const MERCADOLIBRE_SECRET_KEY = process.env.MERCADOLIBRE_SECRET_KEY;
 
 //encryption key for saved state
-const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
+const BOTAUTH_SECRET = process.env.BOTAUTH_SECRET;
 
-
+console.log(process.env.MICROSOFT_APP_PASSWORD);
 
 let connector = new builder.ChatConnector({
-    appId: envx("MICROSOFT_APP_ID"),
-    appPassword: envx("MICROSOFT_APP_PASSWORD"),
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD,
     userWelcomeMessage: "Hello... Welcome to the group."
 });
 
@@ -69,9 +67,6 @@ var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSI
         });
     });
 
-module.exports = {
-    botAuth: ba
-}
 
 //events
 getFileNames('./app/events')
@@ -86,7 +81,7 @@ getFileNames('./app/recognizers')
 //dialogs
 getFileNames('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(dialog => dialog.fx(dialog.name, bot));
+    .forEach(dialog => dialog.fx(dialog.name, bot, ba));
 
 const logUserConversation = (event) => {
     console.log('message: ' + event.text + ', user: ' + event.address.user.name);

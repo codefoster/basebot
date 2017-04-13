@@ -8,12 +8,12 @@
 
 //you can have multiple QnA makers you just need to have seperate files 
 //and different intent names (intentName:"qna2")
-const envx = require("envx");
+
 let builder = require("botbuilder");
 var bbcs = require('botbuilder-cognitiveservices');
 
 module.exports = new bbcs.QnAMakerRecognizer({
-    knowledgeBaseId: envx("QNA_ID"), 
-    subscriptionKey: envx("QNA_KEY"),
+    knowledgeBaseId: process.env.QNA_ID, 
+    subscriptionKey: process.env.QNA_KEY,
     intentName: "qna"
 });

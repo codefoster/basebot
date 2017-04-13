@@ -1,13 +1,12 @@
-let app = require('../../../server');
 let restify = require('restify');
 let builder = require('botbuilder');
 
-module.exports = function (name, bot) {
+module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [].concat(
-        app.botAuth.authenticate("mercadolibre"),
+        ba.authenticate("mercadolibre"),
         function (session, results) {
             //get the pinterest profile
-            var user = app.botAuth.profile(session, "mercadolibre");
+            var user = ba.profile(session, "mercadolibre");
 
             //call pinterest and get something using user.accessToken
             var client = restify.createJsonClient({

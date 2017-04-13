@@ -3,7 +3,7 @@ let Products = require('../../services/products')
 //let search = require('../../services/search');
 //let displayProducts = require('../../helpers/displayProducts');
 
-module.exports = function (name, bot) {
+module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
             session.sendTyping();
