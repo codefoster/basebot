@@ -11,7 +11,7 @@ let readdir = require('readdir-enhanced');
 let botauth = require('botauth');
 let util = require('util');
 
-// This loads the environment variables from the .env file
+//this loads the environment variables from the .env file
 require('dotenv').config()
 
 const passport = require("passport");
@@ -67,41 +67,29 @@ var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSI
         });
     });
 
-
 //events
+//this dynamically configures events for the bot by enumerating the files in ./app/events, requiring each (as fx), and then calling that fx passing in the bot
 getFileNames('./app/events')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    //for each one, execute the function (what ever the module returns becomes function (fx))
     .forEach(event => event.fx(event.name, bot));
 
-// // recognizers
+//recognizers
+//this dynamically configures recognizers for the bot by enumerating the files in ./app/recognizers, requiring each, and then calling bot.recognizer for each
 getFileNames('./app/recognizers')
     .map(file => Object.assign(file, { recognizer: require(file.path) }))
     .forEach(r => bot.recognizer(r.recognizer));
+
 //dialogs
+//this dynamically configures dialogs for the bot by enumerating the files in ./app/dialogs, requiring each (as fx), and then calling that fx passing in the bot
 getFileNames('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
     .forEach(dialog => dialog.fx(dialog.name, bot, ba));
 
-const logUserConversation = (event) => {
-    console.log('message: ' + event.text + ', user: ' + event.address.user.name);
-};
-
-// middleware
-bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
-
-
-// Middleware for logging
-bot.use({
-    receive: function (event, next) {
-        logUserConversation(event);
-        next();
-    },
-    send: function (event, next) {
-        logUserConversation(event);
-        next();
-    }
-});
+//middleware
+//this dynamically configures middleware modules for the bot by enumerating the files in ./app/middleware, requiring each, and then calling bot.use on each
+getFileNames('./app/middleware')
+    .map(file => require(file.path))
+    .forEach(mw => bot.use(mw));
 
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
@@ -133,11 +121,11 @@ bot.on('conversationUpdate', function (message) {
     }
 });
 
-*/
 
-//Takes a directory and using fs to loop through the files in the directory
-//this is how we get the names of our dialogs. By looking at the file names in the dialogs folder
-//it is used the same way for recognizers, actions, etc.
+//takes a directory and using fs to loop through the files in the directory
+//this is how we get the names of our dialogs, recognizers, etc. By looking at the file names in the dialogs folder
+=======
+
 //filter by .js files 
 function getFileNames(dir) {
     return readdir.sync(dir, { deep: true })
