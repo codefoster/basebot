@@ -94,38 +94,8 @@ getFileNames('./app/middleware')
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
 
-/*//Sends greeting message when the bot is first added to a conversation
-bot.on('conversationUpdate', function (message) {
-    if (message.membersAdded) {
-        message.membersAdded.forEach(function (identity) {
-            if (identity.id === message.address.bot.id) {
-
-                fs.readFile('./app/images/MercadoLibre_logo.PNG', function (err, data) {
-                    var contentType = 'image/png';
-                    var base64 = Buffer.from(data).toString('base64');
-                    var msg = new builder.Message()
-                        .address(message.address)
-                        .addAttachment({
-                            contentUrl: util.format('data:%s;base64,%s', contentType, base64),
-                            contentType: contentType,
-                            name: 'MercadoLibreLogo.png'
-                        })
-                    bot.send(msg);
-                });
-                var reply = new builder.Message()
-                    .address(message.address)
-                    .text('Hi! I am Mercado Libre Bot. I can find you  products. Try saying show me cameras.');
-                bot.send(reply);
-            }
-        });
-    }
-});
-*/
-
 //takes a directory and using fs to loop through the files in the directory
 //this is how we get the names of our dialogs, recognizers, etc. By looking at the file names in the dialogs folder
-
-
 //filter by .js files 
 function getFileNames(dir) {
     return readdir.sync(dir, { deep: true })
