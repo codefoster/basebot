@@ -24,7 +24,7 @@ module.exports = {
                 new builder.CardAction()
                     .title('More details')
                     .type('openUrl')
-                    .value(encodeURIComponent(product.permalink))
+                    .value(product.permalink)
             ]);
     }
 }

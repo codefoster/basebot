@@ -1,3 +1,5 @@
+let builder = require('botbuilder');
+
 module.exports = function(name, bot, ba){
     bot.dialog(`/${name}`, [
         (session, args, next) => {
