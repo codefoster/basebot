@@ -31,7 +31,8 @@ module.exports = function (name, bot, ba) {
                     session.endDialog(msg);
                 } else {
                     console.log(err);
-                    session.endDialog("error getting profile");
+                    session.reset();
+                    session.endDialog("error getting profile, typing 'logout' to try again");
                 }
             });
         }
