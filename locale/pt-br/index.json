@@ -1,0 +1,5 @@
+{
+    "welcome": "(pt-br) Bienvenido! I am Mercado Libre Bot. I can find you products. Try saying \"show me cameras\".",
+    "welcome-finder": "(pt-br) Welcome to the MercadoLibre finder! We are analyzing your message: '%s'",
+    "what-item": "Prompts.text(): (pt-br) What is the name of the item you are looking for?"
+}

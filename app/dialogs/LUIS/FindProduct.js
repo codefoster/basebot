@@ -8,7 +8,7 @@ module.exports = function (name, bot, ba) {
         function (session, args, next) {
             session.sendTyping();
             //If we are in here we are on the FindProduct Intent
-            session.send('Welcome to the MercadoLibre finder! We are analyzing your message: \'%s\'', session.message.text);
+            session.send('welcome-finder', session.message.text);
             //see if we have the ProductType entity
             var productEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'ProductType')
             //if we have it
@@ -17,7 +17,7 @@ module.exports = function (name, bot, ba) {
                 next({ response: productEntity.entity });
             } else {
                 //Dont know what they are searching for. 
-                builder.Prompts.text(session, 'What is the name of the item you are looking for?')
+                builder.Prompts.text(session, 'what-item')
             }
         },
         function (session, results) {

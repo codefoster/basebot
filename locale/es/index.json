@@ -1,5 +1,8 @@
 {
     "confused": "Lo siento, no te entendí o tal vez solo perdí la pista de nuestra conversación",
+    "welcome": "(es) Bienvenido! I am Mercado Libre Bot. I can find you products. Try saying \"show me cameras\".",
+    "welcome-finder": "(es) Welcome to the MercadoLibre finder! We are analyzing your message: '%s'",
+    "what-item": "Prompts.text(): (es) What is the name of the item you are looking for?",
     "greeting": ["Bienvenido al bot de ejemplo para botstarter.", "Hola! Yo soy el bot de ejemplo para botstarter.", "Saludos! Yo soy el bot de ejemplo para botstarter."],
     "instructions": "Esta demo te pedirá seleccionar cuál es tu idioma preferido y después te pedirá seleccionar entre varias opciones usando el idioma seleccionado. ",
     "locale_prompt": "Cuál es tu idioma preferido?",
