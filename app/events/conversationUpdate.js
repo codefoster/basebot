@@ -22,10 +22,11 @@ module.exports = function (name, bot, ba) {
                     // });
 
                     //figure out how to recover the address from mongo
-                    bot.loadSession(address, (err, session) => {
-                        //send a message that can now take advantage of the user's preferredLocale and other specifics
-                        session.send('hi from conversationUpdate');
-                    })
+                    if (address)
+                        bot.loadSession(address, (err, session) => {
+                            //send a message that can now take advantage of the user's preferredLocale and other specifics
+                            session.send('hi from conversationUpdate');
+                        })
 
                     var reply = new builder.Message()
                         .address(message.address)
