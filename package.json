@@ -11,6 +11,7 @@
     "dotenv-extended": "^1.0.4",
     "lodash": "^4.17.4",
     "mongoose": "^4.9.4",
+    "mongodb": "^2.2.25",
     "nlp_compromise": "^6.5.3",
     "passport-mercadolibre": "0.0.2",
     "phone-regex": "^2.0.0",
