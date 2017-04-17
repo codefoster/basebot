@@ -1,8 +1,13 @@
-module.exports = function (name, bot, ba) {
+const MATCH = 1.1;
+const NOMATCH = 0.0;
+const currentVersion = 1.0;
+
+module.exports = function(name, bot, ba){
     bot.dialog(`/${name}`, [
-        function (session) {
-            session.userData.version = 1.0;
-            //this will only happen once for a user
+        function (session, args, next) {
+            session.userData.version = currentVersion;
+
+            //happens once per user (until we increment currentVersion)
 
             session.endDialog();
         }
@@ -10,7 +15,8 @@ module.exports = function (name, bot, ba) {
         .triggerAction({
             onFindAction: function (context, callback) {
                 let version = context.userData.version || 0;
-                callback(null, (version < 1.0 ? 1.1 : 0.0));
+                callback(null, (version < currentVersion ? MATCH : NOMATCH));
             }
         })
+
 };
