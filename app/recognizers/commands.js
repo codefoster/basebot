@@ -3,7 +3,8 @@
 let commands = [
     { text: 'profile', intent: 'profile' },
     { text: 'logout', intent: 'logout' },
-    { text: 'delete all', intent: 'delete' }
+    { text: 'delete all', intent: 'delete' },
+    { text: 'change locale', intent: 'changeLocale' }
 ];
 
 module.exports = {
