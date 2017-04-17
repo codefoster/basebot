@@ -15,33 +15,33 @@ const search = (index, query) => {
     }).then((result) => {
         const obj = JSON.parse(result);
         return obj;
-    });    
+    });
 }
 
 const searchProducts = (query) => search('products', query);
 
 const concatenateQuery = (session) => {
     var query = '';
-    
+
     // TODO: Concatenate the entities in a more meaningful way to hit product search API    
     entityTypes.forEach(e => {
         var temp = session.userData[e.type];
-        if(temp) {
+        if (temp) {
             query += session.userData[e.type] + ' '
         }
-    }); 
+    });
 
-    return query; 
+    return query;
 }
 
 module.exports = {
     getSampleData: () => sampleProducts,
 
-    findProducts: function(query) {
+    findProducts: function (query) {
         return searchProducts(query);
     },
-    
-    createQuery:  function(session) {
-        return concatenateQuery(session);     
+
+    createQuery: function (session) {
+        return concatenateQuery(session);
     }
 };

@@ -1,5 +1,7 @@
 let builder = require("botbuilder");
 
+//this dialog provides an imperative means to send a backchannel message
+//from the bot to the user
 module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, session => {
         var msg = new builder.Message().address(session.message.address);
@@ -7,6 +9,5 @@ module.exports = function (name, bot, ba) {
         msg.data.name = "backchannel message from bot";
         msg.data.value = session.message.text;
         session.endDialog(msg);
-    })
-        .triggerAction({ matches: /backchannel/i })
+    }).triggerAction({ matches: /backchannel/i })
 }

@@ -12,7 +12,7 @@ module.exports = function (name, bot, ba) {
                 url: 'https://api.mercadolibre.com',
                 accept: 'application/json',
             });
-            var mercadoLibreUrl = '/users/'+ user.id + '?access_token=' + user.accessToken;
+            var mercadoLibreUrl = '/users/' + user.id + '?access_token=' + user.accessToken;
             client.get(mercadoLibreUrl, (err, req, res, obj) => {
                 if (!err) {
                     console.log(obj);
@@ -20,10 +20,10 @@ module.exports = function (name, bot, ba) {
                         .attachments([
                             new builder.HeroCard(session)
                                 .text(user.first_name + ' ' + user.last_name)
-/*                                .images([
-                                    new builder.CardImage(session).url(obj.data.image['60x60'].url)
-                                ]
-                                )*/
+                            /*                                .images([
+                                                                new builder.CardImage(session).url(obj.data.image['60x60'].url)
+                                                            ]
+                                                            )*/
                         ]
                         );
                     session.endDialog(msg);
@@ -33,5 +33,5 @@ module.exports = function (name, bot, ba) {
                 }
             });
         }
-    )).triggerAction({matches:name});
+    )).triggerAction({ matches: name });
 };

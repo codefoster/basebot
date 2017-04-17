@@ -12,9 +12,9 @@ exports.chooseLocale = function (session, options) {
 }
 
 let locales = [
-    {code:'en', name:'English'},
-    {code:'es', name:'Español'},
-    {code:'pt-br', name:'Portuguese (Brazil)'} //TODO: translate to portuguese (br)
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'pt-br', name: 'Portuguese (Brazil)' } //TODO: translate to portuguese (br)
 ];
 
 lib.dialog('chooseLocale', [
@@ -23,7 +23,7 @@ lib.dialog('chooseLocale', [
     },
     function (session, results) {
         let chosenLocale = locales.find(l => l.name == results.response.entity);
-        if(chosenLocale)
+        if (chosenLocale)
             session.preferredLocale(chosenLocale.code, err => {
                 if (!err) session.endDialog('locale_updated');
                 else session.error(err);
@@ -48,7 +48,7 @@ exports.languageDetection = function (apiKey) {
                 var options = {
                     method: 'POST',
                     url: 'https://westus.api.cognitive.microsoft.com/text/analytics/v2.0/languages?numberOfLanguagesToDetect=1',
-                    body: { documents: [{ id: 'message', text: event.text }]},
+                    body: { documents: [{ id: 'message', text: event.text }] },
                     json: true,
                     headers: {
                         'Ocp-Apim-Subscription-Key': apiKey

@@ -1,6 +1,6 @@
 let builder = require('botbuilder');
 
-module.exports = function(name, bot, ba){
+module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [
         (session, args, next) => {
             builder.Prompts.confirm(session, "are you sure you want to logout");
@@ -12,5 +12,5 @@ module.exports = function(name, bot, ba){
                 session.endDialog("you're still logged in");
             }
         }
-    ]).triggerAction({matches:name})
+    ]).triggerAction({ matches: name })
 };

@@ -3,10 +3,7 @@ var Promise = require('bluebird');
 module.exports = {
     searchProducts: function (product) {
         return new Promise(function (resolve) {
-
-
-            
-//Below will work with sample data
+            //Below will work with sample data
             // Filling the products results manually just for demo purposes
             var products = [];
             for (var i = 1; i <= 5; i++) {

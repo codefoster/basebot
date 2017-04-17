@@ -1,6 +1,6 @@
 let builder = require('botbuilder');
 
-module.exports = function(name, bot, ba){
+module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [
         // should have customer id
         // prompt for future order id
@@ -13,6 +13,5 @@ module.exports = function(name, bot, ba){
             let futureOrderID = args.response.entity;
             session.endDialog(`edit ${futureOrderID}`);
         }
-    ])
-        .triggerAction({matches:name})
+    ]).triggerAction({ matches: name })
 };

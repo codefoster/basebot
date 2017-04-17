@@ -5,8 +5,8 @@ module.exports = (session, productResults) => {
     session.sendTyping();
 
     // Only return the top 10 results in a carousel
-    var numCards;    
-    if(productResults.length > 10) {
+    var numCards;
+    if (productResults.length > 10) {
         numCards = 10;
     } else if (productResults.length < 1) {
         return false;
@@ -15,9 +15,9 @@ module.exports = (session, productResults) => {
     }
 
     var cards = [];
-    for(var i = 0; i < numCards; i++){
+    for (var i = 0; i < numCards; i++) {
         var product = productResults[i];
-        var price = (product.price/100).toFixed(2);
+        var price = (product.price / 100).toFixed(2);
 
         const card = new builder.HeroCard(session)
             .title(util.formatTitle(product.title))
