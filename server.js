@@ -1,29 +1,17 @@
 "use strict";
-//the BotBuilder SDK
-let builder = require("botbuilder");
-//Restify used to serve the bot
-let restify = require('restify');
+let builder = require("botbuilder"); //the BotBuilder SDK
+let restify = require('restify'); //Restify used to serve the bot
 let botauth = require('botauth');
 let utils = require('./app/helpers/utils');
+let MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
+let dotenv = require('dotenv');
 
 //this loads the environment variables from the .env file
-require('dotenv').config()
-
-const passport = require("passport");
-const MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
-const WEBSITE_HOSTNAME = process.env.WEB_HOSTNAME;
-
-//oauth details for Mercado Libre
-const MERCADOLIBRE_APP_ID = process.env.MERCADOLIBRE_APP_ID;
-const MERCADOLIBRE_SECRET_KEY = process.env.MERCADOLIBRE_SECRET_KEY;
-
-//encryption key for saved state
-const BOTAUTH_SECRET = process.env.BOTAUTH_SECRET;
+dotenv.config();
 
 let connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
-    appPassword: process.env.MICROSOFT_APP_PASSWORD,
-    userWelcomeMessage: "Hello... Welcome to the group."
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 
 let bot = new builder.UniversalBot(connector, session => session.endDialog("default_dialog"));
@@ -38,11 +26,11 @@ server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
 // Initialize with the strategies we want to use
-var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSITE_HOSTNAME, secret: BOTAUTH_SECRET })
+let ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEB_HOSTNAME, secret: process.env.BOTAUTH_SECRET })
     .provider("mercadolibre", (options) => {
         return new MercadoLibreStrategy({
-            clientID: MERCADOLIBRE_APP_ID,
-            clientSecret: MERCADOLIBRE_SECRET_KEY,
+            clientID: process.env.MERCADOLIBRE_APP_ID,
+            clientSecret: process.env.MERCADOLIBRE_SECRET_KEY,
             scope: ['read_public', 'read_relationships'],
             callbackURL: options.callbackURL
         }, (accessToken, refreshToken, profile, done) => {
