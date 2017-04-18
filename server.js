@@ -12,6 +12,7 @@ require('dotenv').config()
 const passport = require("passport");
 const MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
 const WEBSITE_HOSTNAME = process.env.WEB_HOSTNAME;
+
 //oauth details for Mercado Libre
 const MERCADOLIBRE_APP_ID = process.env.MERCADOLIBRE_APP_ID;
 const MERCADOLIBRE_SECRET_KEY = process.env.MERCADOLIBRE_SECRET_KEY;
@@ -19,23 +20,13 @@ const MERCADOLIBRE_SECRET_KEY = process.env.MERCADOLIBRE_SECRET_KEY;
 //encryption key for saved state
 const BOTAUTH_SECRET = process.env.BOTAUTH_SECRET;
 
-console.log(process.env.MICROSOFT_APP_PASSWORD);
-
 let connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
     appPassword: process.env.MICROSOFT_APP_PASSWORD,
     userWelcomeMessage: "Hello... Welcome to the group."
 });
 
-let bot = new builder.UniversalBot(connector, function (session) {
-    //You can either set your preferred Locale like this (default is en if you dont do anything)
-    session.preferredLocale("en");
-    //if you want them to select their locale then call this
-    /*    if (!session.userData['BotBuilder.Data.PreferredLocale']) {
-            session.beginDialog('/localePicker');
-        } */
-    //session.beginDialog('/profile',{});
-});
+let bot = new builder.UniversalBot(connector, session => session.endDialog("default_dialog"));
 
 //serve the bot
 let server = restify.createServer();
