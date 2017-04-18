@@ -1,5 +1,8 @@
 let S = require('string');
 let builder = require('botbuilder');
+let fs = require('fs');
+let readdir = require('readdir-enhanced');
+let path = require('path');
 
 module.exports = {
     formatTitle: s => {
@@ -15,7 +18,7 @@ module.exports = {
             .truncate(240, '...')
             .s;
     },
-    productAsAttachment(product) {
+    productAsAttachment: (product) => {
         return new builder.HeroCard()
             .title(product.title)
             //.subtitle(' price %d quantity %d mode. $%d .', product.price, product.available_quantity, product.buying_mode)
@@ -26,5 +29,15 @@ module.exports = {
                     .type('openUrl')
                     .value(product.permalink)
             ]);
+    },
+    
+    //takes a directory and using fs to loop through the files in the directory
+    //this is how we get the names of our dialogs, recognizers, etc. By looking at the file names in the dialogs folder
+    //filter by .js files 
+    getFiles: dir => {
+        return readdir.sync(dir, { deep: true })
+            .map(item => `.${path.posix.sep}${path.posix.join(dir, path.posix.format(path.parse(item)))}`) //normalize paths
+            .filter(item => !fs.statSync(item).isDirectory() && /.js$/.test(item)) //filter out directories
+            .map(file => ({ name: path.basename(file, '.js'), path: file }))
     }
 }

@@ -3,13 +3,8 @@
 let builder = require("botbuilder");
 //Restify used to serve the bot
 let restify = require('restify');
-//Library for list management
-let _ = require('lodash');
-let fs = require('fs');
-let path = require('path');
-let readdir = require('readdir-enhanced');
 let botauth = require('botauth');
-let util = require('util');
+let utils = require('./app/helpers/utils');
 
 //this loads the environment variables from the .env file
 require('dotenv').config()
@@ -69,43 +64,35 @@ var ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + WEBSI
 
 //events
 //this dynamically configures events for the bot by enumerating the files in ./app/events, requiring each (as fx), and then calling that fx passing in the bot
-getFileNames('./app/events')
+utils.getFiles('./app/events')
     .map(file => Object.assign(file, { fx: require(file.path) }))
     .forEach(event => event.fx(event.name, bot));
 
 //recognizers
 //this dynamically configures recognizers for the bot by enumerating the files in ./app/recognizers, requiring each, and then calling bot.recognizer for each
-getFileNames('./app/recognizers')
+utils.getFiles('./app/recognizers')
     .map(file => Object.assign(file, { recognizer: require(file.path) }))
     .forEach(r => bot.recognizer(r.recognizer));
 
 //dialogs
 //this dynamically configures dialogs for the bot by enumerating the files in ./app/dialogs, requiring each (as fx), and then calling that fx passing in the bot
-getFileNames('./app/dialogs')
+utils.getFiles('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
     .forEach(dialog => dialog.fx(dialog.name, bot, ba));
 
 //middleware
 //this dynamically configures middleware modules for the bot by enumerating the files in ./app/middleware, requiring each, and then calling bot.use on each
-getFileNames('./app/middleware')
+utils.getFiles('./app/middleware')
     .map(file => require(file.path))
     .forEach(mw => bot.use(mw));
 
 //libraries
-getFileNames('./app/libraries')
+utils.getFiles('./app/libraries')
     .map(file => require(file.path))
     .forEach(library => bot.library(library.createLibrary()));
 
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
 
-//takes a directory and using fs to loop through the files in the directory
-//this is how we get the names of our dialogs, recognizers, etc. By looking at the file names in the dialogs folder
-//filter by .js files 
-function getFileNames(dir) {
-    return readdir.sync(dir, { deep: true })
-        .map(item => `.${path.posix.sep}${path.posix.join(dir, path.posix.format(path.parse(item)))}`) //normalize paths
-        .filter(item => !fs.statSync(item).isDirectory() && /.js$/.test(item)) //filter out directories
-        .map(file => ({ name: path.basename(file, '.js'), path: file }))
-}
+
 
