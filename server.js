@@ -72,6 +72,3 @@ utils.getFiles('./app/libraries')
 
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
-
-
-
