@@ -1,4 +1,4 @@
-var builder = require('../../core/');
+var builder = require('botbuilder');
 var request = require('request');
 
 var lib = new builder.Library('localeTools');

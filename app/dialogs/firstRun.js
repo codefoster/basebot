@@ -1,7 +1,7 @@
 const MATCH = 1.1;
 const NOMATCH = 0.0;
 const currentVersion = 1.0;
-let localeTools = require('./localeTools');
+let localeTools = require('../libraries/localeTools');
 
 module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [
@@ -10,6 +10,7 @@ module.exports = function (name, bot, ba) {
 
             session.userData.version = currentVersion;
 
+            localeTools.createLibrary();
             localeTools.chooseLocale(session);
 
             session.endDialog();

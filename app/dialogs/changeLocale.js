@@ -1,4 +1,4 @@
-let localeTools = require('./localeTools');
+let localeTools = require('../libraries/localeTools');
 
 module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
