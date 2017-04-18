@@ -2,4 +2,4 @@
 //in a different recognizer files
 let builder = require("botbuilder");
 
-module.exports = new builder.LuisRecognizer(process.env.LUIS_ENDPOINT);
+module.exports = new builder.LuisRecognizer(process.env.LUIS_ENDPOINT_EN);
