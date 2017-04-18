@@ -14,7 +14,7 @@ exports.chooseLocale = function (session, options) {
 let locales = [
     { code: 'en', name: 'English' },
     { code: 'es', name: 'Español' },
-    { code: 'pt-br', name: 'Portuguese (Brazil)' } //TODO: translate to portuguese (br)
+    { code: 'pt-br', name: 'Português' }
 ];
 
 lib.dialog('chooseLocale', [
