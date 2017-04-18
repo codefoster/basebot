@@ -19,7 +19,7 @@ let locales = [
 
 lib.dialog('chooseLocale', [
     function (session) {
-        builder.Prompts.choice(session, "locale_prompt", locales.map(l => l.name).join('|'));
+        builder.Prompts.choice(session, "What language do you prefer?", locales.map(l => l.name).join('|'));
     },
     function (session, results) {
         let chosenLocale = locales.find(l => l.name == results.response.entity);
