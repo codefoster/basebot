@@ -3,8 +3,6 @@
 //use "delete all" command to reset user data and test
 //increment currentVersion to cause this dialog to run again for all users
 
-let localeTools = require('../libraries/localeTools');
-
 const MATCH = 1.1;
 const NOMATCH = 0.0;
 const currentVersion = 1.0;
@@ -14,7 +12,7 @@ module.exports = function (name, bot, ba) {
         function (session, args, next) {
             session.send("(first run for this user)");
             session.userData.hasRunVersion = currentVersion;
-            localeTools.chooseLocale(session);
+            session.beginDialog("/chooseLocale");
         }
     ]).triggerAction({
         onFindAction: function (context, callback) {
