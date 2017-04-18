@@ -10,7 +10,6 @@ module.exports = function (name, bot, ba) {
 
             session.userData.version = currentVersion;
 
-            localeTools.createLibrary();
             localeTools.chooseLocale(session);
 
             session.endDialog();

@@ -91,6 +91,11 @@ getFileNames('./app/middleware')
     .map(file => require(file.path))
     .forEach(mw => bot.use(mw));
 
+//libraries
+getFileNames('./app/libraries')
+    .map(file => require(file.path))
+    .forEach(library => bot.library(library.createLibrary()));
+
 //actions
 bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
 
