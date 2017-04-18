@@ -11,8 +11,6 @@ module.exports = function (name, bot, ba) {
             session.userData.version = currentVersion;
 
             localeTools.chooseLocale(session);
-
-            session.endDialog();
         }
     ]).triggerAction({
         onFindAction: function (context, callback) {
