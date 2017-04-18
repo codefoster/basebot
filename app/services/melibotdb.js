@@ -11,7 +11,10 @@ module.exports = {
 
         // Use connect method to connect to the server
         MongoClient.connect(url, function (err, db) {
-
+            if(err) {
+                console.log('database offline... address not saved');
+                return;
+            }
             let addresses = db.collection('addresses');
 
             addresses.insert(address, (err, result) => {
