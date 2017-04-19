@@ -18,9 +18,9 @@ const search = (index, query) => {
     });
 }
 
-const searchProducts = (query) => search('products', query);
+let productSearch = query => search('products', query);
 
-const concatenateQuery = (session) => {
+let concatenateQuery = session => {
     var query = '';
 
     // TODO: Concatenate the entities in a more meaningful way to hit product search API    
@@ -36,12 +36,6 @@ const concatenateQuery = (session) => {
 
 module.exports = {
     getSampleData: () => sampleProducts,
-
-    findProducts: function (query) {
-        return searchProducts(query);
-    },
-
-    createQuery: function (session) {
-        return concatenateQuery(session);
-    }
+    productSearch: productSearch(query),
+    createQuery: concatenateQuery(session)
 };

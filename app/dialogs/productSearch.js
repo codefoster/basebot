@@ -1,13 +1,12 @@
 let restify = require('restify');
 let builder = require('botbuilder');
-let utils = require('../../helpers/utils');
+let utils = require('../helpers/utils');
 
 // ba is not needed for a simple search for products
 module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
             session.sendTyping();
-            //If we are in here we are on the FindProduct Intent
             session.send('welcome-finder', session.message.text);
             //see if we have the ProductType entity
             var productEntity = builder.EntityRecognizer.findEntity(args.intent.entities, 'ProductType')
@@ -30,7 +29,7 @@ module.exports = function (name, bot, ba) {
             var mercadoLibreUrl = '/sites/MLU/search?q=' + product + '&limit=5';
             client.get(mercadoLibreUrl, (err, req, res, obj) => {
                 if (!err) {
-                    //session.send('I found %d products', products.length);
+                    session.send(`I found ${obj.results.length} products`);
 
                     console.log(obj);
                     var msg = new builder.Message()
