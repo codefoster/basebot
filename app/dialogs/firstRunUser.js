@@ -3,7 +3,7 @@
 //use "delete all" command to reset user data and test
 //increment currentVersion to cause this dialog to run again for all users
 
-const MATCH = 1.1;
+const MATCH = 1.0;
 const NOMATCH = 0.0;
 const currentVersion = 1.0;
 

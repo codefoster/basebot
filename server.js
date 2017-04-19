@@ -1,10 +1,10 @@
 "use strict";
 let builder = require("botbuilder"); //the BotBuilder SDK
 let restify = require('restify'); //Restify used to serve the bot
-let botauth = require('botauth');
-let utils = require('./app/helpers/utils');
-let MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
 let dotenv = require('dotenv');
+let utils = require('./app/helpers/utils');
+let botauth = require('botauth');
+let MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
 
 //this loads the environment variables from the .env file
 dotenv.config();
@@ -41,12 +41,6 @@ let ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + proce
         });
     });
 
-//events
-//this dynamically configures events for the bot by enumerating the files in ./app/events, requiring each (as fx), and then calling that fx passing in the bot
-utils.getFiles('./app/events')
-    .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(event => event.fx(event.name, bot));
-
 //recognizers
 //this dynamically configures recognizers for the bot by enumerating the files in ./app/recognizers, requiring each, and then calling bot.recognizer for each
 utils.getFiles('./app/recognizers')
@@ -59,16 +53,14 @@ utils.getFiles('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
     .forEach(dialog => dialog.fx(dialog.name, bot, ba));
 
+//events
+//this dynamically configures events for the bot by enumerating the files in ./app/events, requiring each (as fx), and then calling that fx passing in the bot
+utils.getFiles('./app/events')
+    .map(file => Object.assign(file, { fx: require(file.path) }))
+    .forEach(event => event.fx(event.name, bot));
+
 //middleware
 //this dynamically configures middleware modules for the bot by enumerating the files in ./app/middleware, requiring each, and then calling bot.use on each
 utils.getFiles('./app/middleware')
     .map(file => require(file.path))
     .forEach(mw => bot.use(mw));
-
-//libraries
-utils.getFiles('./app/libraries')
-    .map(file => require(file.path))
-    .forEach(library => bot.library(library.createLibrary()));
-
-//actions
-bot.endConversationAction('goodbye', 'Goodbye :)', { matches: /^goodbye/i });
