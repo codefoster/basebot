@@ -1,0 +1,192 @@
+{
+  "site_id": "MLU",
+  "query": "chromecast",
+  "paging": {
+    "total": 40,
+    "offset": 0,
+    "limit": 50
+  },
+  "results": [],
+  "secondary_results": [
+  ],
+  "related_results": [
+  ],
+  "sort": {
+    "id": "relevance",
+    "name": "More relevant"
+  },
+  "available_sorts": [
+    {
+      "id": "price_asc",
+      "name": "Lower price"
+    },
+    {
+      "id": "price_desc",
+      "name": "Higher price"
+    }
+  ],
+  "filters": [
+    {
+      "id": "category",
+      "name": "Categories",
+      "type": "text",
+      "values": [
+        {
+          "id": "MLU176997",
+          "name": "Streaming Players",
+          "path_from_root": [
+            {
+              "id": "MLU1000",
+              "name": "Electrónica, Audio y Video"
+            },
+            {
+              "id": "MLU3690",
+              "name": "Accesorios para Audio y Video"
+            },
+            {
+              "id": "MLU176997",
+              "name": "Streaming Players"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "available_filters": [
+    {
+      "id": "discount",
+      "name": "Discounts",
+      "type": "range",
+      "values": [
+        {
+          "id": "20-100",
+          "name": "From 20% off",
+          "results": 1
+        }
+      ]
+    },
+    {
+      "id": "state",
+      "name": "Location",
+      "type": "text",
+      "values": [
+        {
+          "id": "UY-MO",
+          "name": "Montevideo",
+          "results": 39
+        },
+        {
+          "id": "UY-CA",
+          "name": "Canelones",
+          "results": 1
+        }
+      ]
+    },
+    {
+      "id": "price",
+      "name": "Price range",
+      "type": "range",
+      "values": [
+        {
+          "id": "*-1500.0",
+          "name": "Up to $1.500",
+          "results": 12
+        },
+        {
+          "id": "1500.0-*",
+          "name": "More than $1.500",
+          "results": 28
+        }
+      ]
+    },
+    {
+      "id": "condition",
+      "name": "Condition filter",
+      "type": "text",
+      "values": [
+        {
+          "id": "new",
+          "name": "New",
+          "results": 38
+        },
+        {
+          "id": "used",
+          "name": "Used",
+          "results": 2
+        }
+      ]
+    },
+    {
+      "id": "shipping",
+      "name": "Shipping",
+      "type": "text",
+      "values": [
+        {
+          "id": "free",
+          "name": "Free shipping",
+          "results": 1
+        }
+      ]
+    },
+    {
+      "id": "power_seller",
+      "name": "Seller quality filter",
+      "type": "boolean",
+      "values": [
+        {
+          "id": "yes",
+          "name": "Best sellers",
+          "results": 21
+        }
+      ]
+    },
+    {
+      "id": "buying_mode",
+      "name": "Buying mode filter",
+      "type": "text",
+      "values": [
+        {
+          "id": "buy_it_now",
+          "name": "Buy it now",
+          "results": 40
+        }
+      ]
+    },
+    {
+      "id": "since",
+      "name": "Auction start date filter",
+      "type": "text",
+      "values": [
+        {
+          "id": "today",
+          "name": "Starting today",
+          "results": 1
+        }
+      ]
+    },
+    {
+      "id": "has_video",
+      "name": "Video publications filter",
+      "type": "boolean",
+      "values": [
+        {
+          "id": "yes",
+          "name": "Publications with video",
+          "results": 6
+        }
+      ]
+    },
+    {
+      "id": "has_pictures",
+      "name": "Items with images filter",
+      "type": "boolean",
+      "values": [
+        {
+          "id": "yes",
+          "name": "With pictures",
+          "results": 39
+        }
+      ]
+    }
+  ]
+}
