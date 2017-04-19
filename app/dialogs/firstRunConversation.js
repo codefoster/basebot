@@ -3,7 +3,7 @@
 
 let melibotdb = require('../services/melibotdb');
 
-const MATCH = 1.1;
+const MATCH = 1.0;
 const NOMATCH = 0.0;
 
 module.exports = function (name, bot, ba) {
