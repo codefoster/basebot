@@ -4,7 +4,7 @@ let user;
 
 module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, ba.authenticate("mercadolibre").concat([
-        function (session, results) {
+        function (session, args, next) {
             //get the mercadolibre profile
             user = ba.profile(session, "mercadolibre");
             //call mercadolibre and get something using user.accessToken
