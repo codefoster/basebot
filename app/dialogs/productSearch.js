@@ -6,6 +6,26 @@ let utils = require('../helpers/utils');
 module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
+
+
+
+            //buyer asks "I'm looking for [cheap] shoes [for my dad]"
+            //productSearch dialog is triggered
+            //turn entities into filters
+            //search via the api
+            //if result count is small, show results
+            //if result count is large, show some and prompt to add filters
+            //filters: gender, price, location, brand, color, condition, size, style
+            //results are displayed as image, title, short description, price
+            //result cards are clickable and go to meli website
+
+
+
+
+
+
+
+
             session.sendTyping();
             session.send('welcome-finder', session.message.text);
             //see if we have the ProductType entity

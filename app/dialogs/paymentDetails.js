@@ -8,6 +8,7 @@ let orders = require('../../samples/sampleBuyerOrders.json');
 module.exports = function (name, bot, ba) {
     bot.dialog(`/${name}`, ba.authenticate("mercadolibre").concat([
         function (session, args, next) {
+            session.sendTyping();
             //get the mercadolibre profile
             user = ba.profile(session, "mercadolibre");
             //call mercadolibre and get something using user.accessToken
@@ -44,6 +45,19 @@ module.exports = function (name, bot, ba) {
                     sesion.endDialog('we did not find any orders');
                 }
             });
+
+            //note: this is the buyer's flow
+            //look in api for open orders
+            //"I found the following open orders, which one are you referring to?"
+            //figure out which order they're referring to
+            //figure out when the payment was made
+            //we think we can trust the user just telling us the payment date
+            //is the payment processing delayed?
+            //if not delayed then relay the product details (including estimated date) to buyer
+            //if delayed then start handoff to get agent to initiate legacy approval flow
+            //  get receipt (attachment, email, etc.)
+            //tell the buyer the process has been expedited
+
         }
     ])).triggerAction({ matches: name })
 };
