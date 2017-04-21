@@ -5,7 +5,7 @@ module.exports = function (name, bot, ba) {
         if (message.action === 'add') {
             var reply = new builder.Message()
                 .address(message.address)
-                .text("Hi. Thanks for adding me.");
+                .text("Thanks for adding me as a contact!");
             bot.send(reply);
         }
     })
