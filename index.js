@@ -2,9 +2,8 @@
 let builder = require("botbuilder"); //the BotBuilder SDK
 let restify = require('restify'); //Restify used to serve the bot
 let dotenv = require('dotenv');
-let utils = require('./app/helpers/utils');
 let botauth = require('botauth');
-let MercadoLibreStrategy = require("passport-mercadolibre").Strategy;
+let authStrategy = require(`passport-${AUTH_PROVIDER_NAME}`).Strategy;
 
 //this loads the environment variables from the .env file
 dotenv.config();
@@ -26,11 +25,11 @@ server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
 // Initialize with the strategies we want to use
-let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEB_HOSTNAME, secret: process.env.AUTH_SECRET })
-    .provider("mercadolibre", (options) => {
-        return new MercadoLibreStrategy({
-            clientID: process.env.MERCADOLIBRE_APP_ID,
-            clientSecret: process.env.MERCADOLIBRE_SECRET_KEY,
+let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEBSITE_HOSTNAME, secret: process.env.BOTAUTH_SECRET })
+    .provider(process.env.AUTH_PROVIDER_NAME, (options) => {
+        return new authStrategy({
+            clientID: process.env.AUTH_PROVIDER_APP_ID,
+            clientSecret: process.env.AUTH_PROVIDER_APP_SECRET,
             scope: ['read_public', 'read_relationships'],
             callbackURL: options.callbackURL
         }, (accessToken, refreshToken, profile, done) => {
