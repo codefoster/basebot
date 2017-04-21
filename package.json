@@ -4,15 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "botauth": "^0.2.12",
     "botbuilder": "^3.7",
+    "botauth": "^0.2.12",
     "dotenv": "^4.0.0",
-    "mongodb": "^2.2.25",
-    "passport-mercadolibre": "0.0.2",
     "readdir-enhanced": "^1.4.5",
     "restify": "^4.1.1",
-    "string": "^3.3.3",
-    "uuid": "^3.0.1"
+    "passport-mercadolibre": "0.0.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -20,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanielEgan/botstarter.git"
+    "url": "git+https://github.com/codefoster/basebot.git"
   },
   "keywords": [],
-  "author": "Daniel Egan <daniel.egan@live.com> (http://TheSociableGeek.com)",
-  "license": "MIT",
+  "author": "Jeremy Foster <jeremy.foster@live.com> (http://codefoster.com)",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/DanielEgan/botstarter/issues"
+    "url": "https://github.com/codefoster/basebot/issues"
   },
-  "homepage": "https://github.com/DanielEgan/botstarter#readme"
+  "homepage": "https://github.com/codefoster/basebot#readme"
 }

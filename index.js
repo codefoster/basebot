@@ -25,7 +25,7 @@ server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
 // Initialize with the strategies we want to use
-let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEBSITE_HOSTNAME, secret: process.env.BOTAUTH_SECRET })
+let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: `https://${process.env.WEBSITE_HOSTNAME}`, secret: process.env.BOTAUTH_SECRET })
     .provider(process.env.AUTH_PROVIDER_NAME, (options) => {
         return new authStrategy({
             clientID: process.env.AUTH_PROVIDER_APP_ID,
