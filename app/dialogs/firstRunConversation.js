@@ -6,7 +6,7 @@ let melibotdb = require('../services/melibotdb');
 const MATCH = 1.0;
 const NOMATCH = 0.0;
 
-module.exports = function (name, bot, ba) {
+module.exports = function (name, bot, auth) {
     bot.dialog(`/${name}`, [
         function (session) {
             session.send("(first run for this conversation)");

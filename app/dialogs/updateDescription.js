@@ -2,7 +2,7 @@ let restify = require('restify');
 let builder = require('botbuilder');
 let user;
 
-module.exports = function (name, bot, ba) {
+module.exports = function (name, bot, auth) {
     bot.dialog(`/${name}`, ba.authenticate("mercadolibre").concat([
         function (session, args, next) {
             //get the mercadolibre profile

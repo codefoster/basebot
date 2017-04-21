@@ -4,7 +4,7 @@ let utils = require('../helpers/utils');
 let user;
 
 
-module.exports = function (name, bot, ba) {
+module.exports = function (name, bot, auth) {
     bot.dialog(`/${name}`, ba.authenticate("mercadolibre").concat([
         function (session, args, next) {
             session.sendTyping();

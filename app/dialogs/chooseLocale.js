@@ -6,7 +6,7 @@ let locales = [
     { code: 'pt-br', name: 'Português' }
 ];
 
-module.exports = function (name, bot, ba) {
+module.exports = function (name, bot, auth) {
     bot.dialog(`/${name}`, [
         function (session) {
             builder.Prompts.choice(session, "locale_prompt", locales.map(l => l.name).join('|'));

@@ -1,6 +1,6 @@
 let builder = require("botbuilder");
 
-module.exports = function (name, bot, ba) {
+module.exports = function (name, bot, auth) {
     bot.dialog(`/${name}`, session => {
         delete session.userData
         session.endDialog('User data deleted')

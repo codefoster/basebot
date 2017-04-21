@@ -26,7 +26,7 @@ server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
 // Initialize with the strategies we want to use
-let ba = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEB_HOSTNAME, secret: process.env.BOTAUTH_SECRET })
+let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEB_HOSTNAME, secret: process.env.BOTAUTH_SECRET })
     .provider("mercadolibre", (options) => {
         return new MercadoLibreStrategy({
             clientID: process.env.MERCADOLIBRE_APP_ID,
@@ -51,7 +51,7 @@ utils.getFiles('./app/recognizers')
 //this dynamically configures dialogs for the bot by enumerating the files in ./app/dialogs, requiring each (as fx), and then calling that fx passing in the bot
 utils.getFiles('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(dialog => dialog.fx(dialog.name, bot, ba));
+    .forEach(dialog => dialog.fx(dialog.name, bot, auth));
 
 //events
 //this dynamically configures events for the bot by enumerating the files in ./app/events, requiring each (as fx), and then calling that fx passing in the bot
