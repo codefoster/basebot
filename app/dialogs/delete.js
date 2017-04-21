@@ -1,3 +1,5 @@
+//this dialog will delete all user data
+
 let builder = require("botbuilder");
 
 module.exports = function (name, bot, auth) {
