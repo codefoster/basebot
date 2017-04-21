@@ -1,15 +1,14 @@
 module.exports = {
     receive: function (event, next) {
-        logUserConversation(event);
+        logMessage(event.address.user.name, event.text);
         next();
     },
     send: function (event, next) {
-        logUserConversation(event);
+        logMessage(event.address.user.name, event.text);
         next();
     }
 }
 
-
-function logUserConversation(event) {
-    console.log('message: ' + event.text + ', user: ' + event.address.user.name);
+function logMessage(user, msg) {
+    console.log(`message: ${msg}, user: ${user}`);
 }
