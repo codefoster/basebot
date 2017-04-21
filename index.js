@@ -26,7 +26,7 @@ server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
 // Initialize with the strategies we want to use
-let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEB_HOSTNAME, secret: process.env.BOTAUTH_SECRET })
+let auth = new botauth.BotAuthenticator(server, bot, { baseUrl: "https://" + process.env.WEB_HOSTNAME, secret: process.env.AUTH_SECRET })
     .provider("mercadolibre", (options) => {
         return new MercadoLibreStrategy({
             clientID: process.env.MERCADOLIBRE_APP_ID,
