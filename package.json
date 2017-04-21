@@ -1,8 +1,8 @@
 {
-  "name": "botstarter",
-  "version": "1.0.0",
+  "name": "basebot",
+  "version": "0.1.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "dependencies": {
     "botauth": "^0.2.12",
     "botbuilder": "^3.7",
