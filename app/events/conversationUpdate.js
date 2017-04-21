@@ -8,7 +8,7 @@ module.exports = function (name, bot, auth) {
                 if (identity.id === message.address.bot.id) {
                     var reply = new builder.Message()
                         .address(message.address)
-                        .text('Hi! I am Mercado Libre Bot. I can find you  products. Try saying show me cameras.');
+                        .text('conversation_update');
                     bot.send(reply);
                 }
             });
