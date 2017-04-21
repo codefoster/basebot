@@ -7,12 +7,29 @@ const MATCH = 1.0;
 const NOMATCH = 0.0;
 const currentVersion = 1.0;
 
-module.exports = function (name, bot, ba) {
+module.exports = function (name, bota) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
             session.send("(first run for this user)");
-            session.userData.hasRunVersion = currentVersion;
+
+            //store the user's message
+            session.dialogData.message = session.message; 
+            
+            //do first run stuff
             session.beginDialog("/chooseLocale");
+
+            session.userData.hasRunVersion = currentVersion;
+        },
+        function(session, bot) {
+            //recover the user's message
+            let message = session.dialogData.message; 
+
+            //clear the dialog stack, and save the session
+            session.clearDialogStack().save().sendBatch(err => {
+
+                //simulate the bot receiving the message
+                bot.receive(message); 
+            });
         }
     ]).triggerAction({
         onFindAction: function (context, callback) {
