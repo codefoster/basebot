@@ -2,7 +2,6 @@ let restify = require("restify");
 let builder = require('botbuilder');
 let utils = require('../helpers/utils');
 let user;
-let orders = require('../../samples/sampleBuyerOrders.json');
 
 
 module.exports = function (name, bot, ba) {
