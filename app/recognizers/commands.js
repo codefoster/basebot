@@ -1,10 +1,10 @@
 //if the command is typed to the bot, the corresponding intent
 //will be triggered by the recognizer
 let commands = [
-    { text: 'profile', intent: 'profile' },
+    { text: 'login', intent: 'sampleAuthDialog' },
     { text: 'logout', intent: 'logout' },
-    { text: 'delete all', intent: 'delete' },
-    { text: 'change locale', intent: 'changeLocale' }
+    { text: 'delete', intent: 'delete' },
+    { text: 'choose locale', intent: 'chooseLocale' }
 ];
 
 module.exports = {
@@ -14,8 +14,6 @@ module.exports = {
         let result = {
             entities: [],
             intent: (match ? match.intent : null),
-            matched: undefined,
-            expression: undefined,
             intents: [],
             score: (match ? 1 : 0)
         };
