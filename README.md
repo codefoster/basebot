@@ -4,7 +4,7 @@
 
 This bot serves as a _walking skeleton_ a bot using Microsoft's Bot Framework and Node.js. A walking skeleton is a starter codebase that attempts to implement the very simplest case, provide starter code for a number of common scenarios, and be a template for the generation of new projects.
 
-If you find this project valuable, please consider contributing your own best practices as pull requests. Fair warning: I am pretty finicky about my syntax, so I help you _refine_ your code to fit my own definition of "best practice".
+If you find this project valuable, please consider contributing your own best practices as pull requests. Fair warning: I am pretty finicky about my syntax, so I reserve the right to suggest _refinements_ to your submission to fit my own definition of "best practice". :)
 
 ## Getting Started
 
