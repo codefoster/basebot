@@ -13,9 +13,9 @@ If you find this project valuable, please consider contributing your own best pr
     ```
     MICROSOFT_APP_ID=
     MICROSOFT_APP_PASSWORD=
-    LUIS_ENDPOINT_1=
+    LUIS_ENDPOINT_1_EN=
+    LUIS_ENDPOINT_1_ES=
     LUIS_ENDPOINT_2=
-    LUIS_ENDPOINT_3=
     WEBSITE_HOSTNAME=
     AUTH_PROVIDER_NAME=
     AUTH_PROVIDER_APP_ID=
