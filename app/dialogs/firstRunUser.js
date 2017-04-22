@@ -10,18 +10,18 @@ const currentVersion = 1.0;
 module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
-            console.log("Executing user level first run...");
+            // console.log("Executing user level first run...");
 
             //store the user's message
             session.dialogData.message = session.message; 
             
             //do first run stuff
             //choose locale
-            session.beginDialog("localeTools:/chooseLocale");
+            session.beginDialog("localeTools:chooseLocale");
 
             session.userData.hasRunVersion = currentVersion;
         },
-        function(session, bot) {
+        function(session, args,next) {
             //recover the user's message
             let message = session.dialogData.message; 
 

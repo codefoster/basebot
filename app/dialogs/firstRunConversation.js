@@ -4,10 +4,10 @@
 const MATCH = 1.0;
 const NOMATCH = 0.0;
 
-module.exports = function (name, bot, auth) {
+module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
         function (session) {
-            console.log("Executing conversation level first run...");
+            // console.log("Executing conversation level first run...");
 
             //store the user's message
             session.dialogData.message = session.message;
