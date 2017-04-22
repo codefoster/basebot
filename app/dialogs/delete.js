@@ -2,9 +2,9 @@
 
 let builder = require("botbuilder");
 
-module.exports = function (name, bot, auth) {
+module.exports = function (name, bot) {
     bot.dialog(`/${name}`, session => {
-        delete session.userData
+        session.userData = {}
         session.endDialog('User data deleted')
     }).triggerAction({
         matches: name,
