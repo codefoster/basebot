@@ -1,6 +1,6 @@
 let builder = require('botbuilder');
 
-module.exports = function (name, bot, auth) {
+module.exports = function (name, bot) {
 
     bot.on(name, function (message) {
         if (message.membersAdded) {
