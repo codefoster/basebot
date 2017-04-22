@@ -4,7 +4,7 @@ let builder = require('botbuilder');
 let user;
 
 module.exports = function (name, bot, auth) {
-    bot.dialog(`/${name}`, ba.authenticate(process.env.AUTH_PROVIDER_NAME).concat([
+    bot.dialog(`/${name}`, auth.authenticate(process.env.AUTH_PROVIDER_NAME).concat([
         function (session, args, next) {
             user = auth.profile(session, process.env.AUTH_PROVIDER_NAME);
             let userId = user.id;
