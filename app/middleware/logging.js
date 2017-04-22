@@ -1,14 +1,12 @@
 module.exports = {
     receive: function (event, next) {
-        logMessage(event.address.user.name, event.text);
+        // log messages from user
+        
         next();
     },
     send: function (event, next) {
-        logMessage(event.address.user.name, event.text);
+        // log messages from bot
+
         next();
     }
-}
-
-function logMessage(user, msg) {
-    console.log(`message: ${msg}, user: ${user}`);
 }
