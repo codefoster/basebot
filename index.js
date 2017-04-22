@@ -2,8 +2,7 @@
 let builder = require("botbuilder");
 let restify = require('restify');
 let dotenv = require('dotenv');
-let botauth = require('botauth');
-let authStrategy = require(`passport-${AUTH_PROVIDER_NAME}`).Strategy;
+let auth = require('./auth');
 
 //load environment variables
 dotenv.config();
@@ -14,6 +13,7 @@ let connector = new builder.ChatConnector({
 });
 
 let bot = new builder.UniversalBot(connector, session => session.endDialog("default_dialog"));
+bot.auth = auth;
 
 //serve the bot
 let server = restify.createServer();
@@ -24,20 +24,6 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
-bot.auth = new botauth.BotAuthenticator(server, bot, { baseUrl: `https://${process.env.WEBSITE_HOSTNAME}`, secret: process.env.BOTAUTH_SECRET })
-    .provider(process.env.AUTH_PROVIDER_NAME, (options) => {
-        return new authStrategy({
-            clientID: process.env.AUTH_PROVIDER_APP_ID,
-            clientSecret: process.env.AUTH_PROVIDER_APP_SECRET,
-            scope: ['read_public', 'read_relationships'],
-            callbackURL: options.callbackURL
-        }, (accessToken, refreshToken, profile, done) => {
-            profile = profile || {};
-            profile.accessToken = accessToken;
-            profile.refreshToken = refreshToken;
-            return done(null, profile);
-        });
-    });
 
 //recognizers
 utils.getFiles('./app/recognizers')
@@ -47,12 +33,12 @@ utils.getFiles('./app/recognizers')
 //dialogs
 utils.getFiles('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(dialog => dialog.fx(dialog.name, bot, auth));
+    .forEach(dialog => dialog.fx(dialog.name, bot));
 
 //events
 utils.getFiles('./app/events')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(event => event.fx(event.name, bot));
+    .forEach(event => event.fx(event.name));
 
 //middleware
 utils.getFiles('./app/middleware')
