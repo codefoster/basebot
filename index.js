@@ -1,11 +1,9 @@
 "use strict";
+require('dotenv').config();
 let builder = require("botbuilder");
 let restify = require('restify');
-let dotenv = require('dotenv');
 let auth = require('./auth');
-
-//load environment variables
-dotenv.config();
+let utils = require('./app/helpers/utils');
 
 let connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
@@ -13,7 +11,6 @@ let connector = new builder.ChatConnector({
 });
 
 let bot = new builder.UniversalBot(connector, session => session.endDialog("default_dialog"));
-bot.auth = auth;
 
 //serve the bot
 let server = restify.createServer();
@@ -24,6 +21,7 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
+bot.auth = auth(server, bot);
 
 //recognizers
 utils.getFiles('./app/recognizers')
