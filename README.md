@@ -21,6 +21,7 @@ If you find this project valuable, please consider contributing your own best pr
     AUTH_PROVIDER_APP_ID=
     AUTH_PROVIDER_APP_SECRET=
     BOTAUTH_SECRET=12345678
+    DIRECT_LINE_SECRET=
     QNA_ID=
     QNA_KEY=
     ```
@@ -74,5 +75,7 @@ The former is used in the firstRunUser dialog to prompt the user right away for 
 ### First Run
 ### Events
 ### Backchannel
+{Set DIRECT_LINE_SECRET environment variable
+
 ### Locale Prompt
 ### Sample Service
