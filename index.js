@@ -36,7 +36,7 @@ utils.getFiles('./app/dialogs')
 //events
 utils.getFiles('./app/events')
     .map(file => Object.assign(file, { fx: require(file.path) }))
-    .forEach(event => event.fx(event.name));
+    .forEach(event => event.fx(event.name, bot));
 
 //middleware
 utils.getFiles('./app/middleware')

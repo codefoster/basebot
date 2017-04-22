@@ -7,7 +7,7 @@ const MATCH = 1.0;
 const NOMATCH = 0.0;
 const currentVersion = 1.0;
 
-module.exports = function (name, bota) {
+module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
             console.log("Executing user level first run...");

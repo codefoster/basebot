@@ -8,4 +8,5 @@ let recognizer = new builder.RecognizerFilter(new builder.LuisRecognizer(process
         let inDialog = stack && stack.length > 0;
         callback(null, !inDialog);
     });
-bot.recognizer(recognizer);
+
+module.exports = recognizer;

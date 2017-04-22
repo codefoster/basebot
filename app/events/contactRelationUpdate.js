@@ -1,6 +1,6 @@
 let builder = require('botbuilder');
 
-module.exports = function (name, bot, auth) {
+module.exports = function (name, bot) {
     bot.on(name, function (message) {
         if (message.action === 'add') {
             var reply = new builder.Message()

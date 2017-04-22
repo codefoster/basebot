@@ -2,7 +2,7 @@ let botauth = require('botauth');
 let authStrategy = require(`passport-${process.env.AUTH_PROVIDER_NAME}`).Strategy;
 
 module.exports = function (server, bot) {
-    new botauth.BotAuthenticator(server, bot, { baseUrl: `https://${process.env.WEBSITE_HOSTNAME}`, secret: process.env.BOTAUTH_SECRET })
+    return new botauth.BotAuthenticator(server, bot, { baseUrl: `https://${process.env.WEBSITE_HOSTNAME}`, secret: process.env.BOTAUTH_SECRET })
         .provider(process.env.AUTH_PROVIDER_NAME, (options) => {
             return new authStrategy({
                 clientID: process.env.AUTH_PROVIDER_APP_ID,

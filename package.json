@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "botbuilder": "^3.7",
     "botauth": "^0.2.12",
+    "botbuilder": "^3.8.0-beta6",
     "dotenv": "^4.0.0",
+    "passport-mercadolibre": "0.0.2",
     "readdir-enhanced": "^1.4.5",
-    "restify": "^4.1.1",
-    "passport-mercadolibre": "0.0.2"
+    "restify": "^4.1.1"
   },
   "devDependencies": {},
   "scripts": {
