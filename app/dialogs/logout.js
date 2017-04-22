@@ -1,6 +1,6 @@
 let builder = require('botbuilder');
 
-module.exports = function (name, bot, auth) {
+module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
         (session, args, next) => {
             builder.Prompts.confirm(session, "log_out_confirm");
