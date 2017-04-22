@@ -41,10 +41,35 @@ Again, this walking skeleton of a bot is what I use not only as a quick starter 
 Dialogs, recognizers, events, and middlware
 
 ### Environment Variables
+The `.env` file you created provides the environment variables used throughout the codebase. It is ignored in the `.gitignore` file.
+
+This file is loaded via a Node.js package called `dotenv`. That happens via this line in `index.js`...
+
+``` js
+dotenv.config()
+```
+
 ### Multiple Recognizers
+
+
 ### Polite Recognizer
+The `/recognizers/polite.js` recognizer uses an `onEnabled` function to detect if the user is currently in a dialog stack and leaves them alone.
+
 ### Middleware
+Middleware in bots works just like middleware in web applications. It intercepts all traffic, and gives us a chance to inject some functionality.
+
+In basebot, you'll find a simple logging function in the middleware folder that should give you the general idea about how to use middleware for your own bot.
+
 ### Library
+The localeTools library is included.
+
+It encapsulates two pieces of functionality related to localization
+
+1. a dialog for prompting the user to choose their preferred locale
+1. a middleware function for detecting their locale automatically based on which language they're typing messags in
+
+The former is used in the firstRunUser dialog to prompt the user right away for their locale and store it for all future sessions. The latter is not used so far in this sample.
+
 ### Authentication
 ### First Run
 ### Events
