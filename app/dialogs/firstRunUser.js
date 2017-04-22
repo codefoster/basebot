@@ -10,7 +10,7 @@ const currentVersion = 1.0;
 module.exports = function (name, bota) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
-            session.send("(first run for this user)");
+            console.log("Executing user level first run...");
 
             //store the user's message
             session.dialogData.message = session.message; 
@@ -27,7 +27,8 @@ module.exports = function (name, bota) {
 
             //clear the dialog stack, and save the session
             session.clearDialogStack().save().sendBatch(err => {
-
+                if(err) console.log(err);
+                
                 //simulate the bot receiving the message
                 bot.receive(message); 
             });
