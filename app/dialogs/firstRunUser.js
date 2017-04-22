@@ -16,7 +16,8 @@ module.exports = function (name, bota) {
             session.dialogData.message = session.message; 
             
             //do first run stuff
-            session.beginDialog("/chooseLocale");
+            //choose locale
+            session.beginDialog("localeTools:/chooseLocale");
 
             session.userData.hasRunVersion = currentVersion;
         },

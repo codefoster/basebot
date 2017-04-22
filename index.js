@@ -52,6 +52,7 @@ utils.getFiles('./app/dialogs')
     .map(file => Object.assign(file, { fx: require(file.path) }))
     .forEach(dialog => dialog.fx(dialog.name, bot, auth));
 
+
 //events
 //this dynamically configures events for the bot by enumerating the files in ./app/events, requiring each (as fx), and then calling that fx passing in the bot
 utils.getFiles('./app/events')
@@ -63,3 +64,8 @@ utils.getFiles('./app/events')
 utils.getFiles('./app/middleware')
     .map(file => require(file.path))
     .forEach(mw => bot.use(mw));
+
+//libraries
+utils.getFiles('./app/libraries')
+    .map(file => require(file.path))
+    .forEach(library => bot.library(library.createLibrary()));

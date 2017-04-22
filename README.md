@@ -8,7 +8,7 @@ If you find this project valuable, please consider contributing your own best pr
 
 ## Getting Started
 
-1. Create a file called `.env` in the root directory and add the following...
+1. Create a file called `.env` in the root directory and add the following text...
 
     ```
     MICROSOFT_APP_ID=
@@ -24,3 +24,30 @@ If you find this project valuable, please consider contributing your own best pr
     QNA_ID=
     QNA_KEY=
     ```
+    You don't have to have values for all of those keys right away.
+
+1. Install dependencies using...
+
+    ```
+    npm install
+    ```
+
+
+## Features
+
+Again, this walking skeleton of a bot is what I use not only as a quick starter template, but also provides a number of features. I'll discuss each of those, talk about where you'll find it in the codebase, and you can decide for each if it's something your bot needs. Or you can just use these as points of learning.
+
+### Dynamic Loading
+Dialogs, recognizers, events, and middlware
+
+### Environment Variables
+### Multiple Recognizers
+### Polite Recognizer
+### Middleware
+### Library
+### Authentication
+### First Run
+### Events
+### Backchannel
+### Locale Prompt
+### Sample Service
