@@ -4,7 +4,8 @@ let commands = [
     { text: 'auth', intent: 'sampleAuthDialog' },
     { text: 'logout', intent: 'logout' },
     { text: 'delete', intent: 'delete' },
-    { text: 'choose locale', intent: 'chooseLocale' }
+    { text: 'choose locale', intent: 'chooseLocale' },
+    { text: 'mongo', intent: 'mongoDataDialog'}
 ];
 
 module.exports = {
