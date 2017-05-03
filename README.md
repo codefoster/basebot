@@ -33,13 +33,12 @@ If you find this project valuable, please consider contributing your own best pr
     npm install
     ```
 
-
 ## Features
 
 Again, this walking skeleton of a bot is what I use not only as a quick starter template, but also provides a number of features. I'll discuss each of those, talk about where you'll find it in the codebase, and you can decide for each if it's something your bot needs. Or you can just use these as points of learning.
 
 ### Dynamic Loading
-Dialogs, recognizers, events, and middlware
+{discuss auto loading of dialogs, recognizers, events, middleware, libraries, etc.}
 
 ### Environment Variables
 The `.env` file you created provides the environment variables used throughout the codebase. It is ignored in the `.gitignore` file.
@@ -47,11 +46,14 @@ The `.env` file you created provides the environment variables used throughout t
 This file is loaded via a Node.js package called `dotenv`. That happens via this line in `index.js`...
 
 ``` js
-dotenv.config()
+require('dotenv').config();
 ```
 
 ### Multiple Recognizers
+{discuss how recognizers stack and execute}
 
+### Recognizer Filters
+{discuss recognizer filters (not implemented yet)}
 
 ### Polite Recognizer
 The `/recognizers/polite.js` recognizer uses an `onEnabled` function to detect if the user is currently in a dialog stack and leaves them alone.
@@ -59,23 +61,27 @@ The `/recognizers/polite.js` recognizer uses an `onEnabled` function to detect i
 ### Middleware
 Middleware in bots works just like middleware in web applications. It intercepts all traffic, and gives us a chance to inject some functionality.
 
-In basebot, you'll find a simple logging function in the middleware folder that should give you the general idea about how to use middleware for your own bot.
+In basebot, you'll find a simple middleware module for doing logging in the `/middleware` folder that should give you the general idea about how to use middleware for your own bot.
 
 ### Library
-The localeTools library is included.
+The `localeTools` library is included.
 
 It encapsulates two pieces of functionality related to localization
 
 1. a dialog for prompting the user to choose their preferred locale
 1. a middleware function for detecting their locale automatically based on which language they're typing messags in
 
-The former is used in the firstRunUser dialog to prompt the user right away for their locale and store it for all future sessions. The latter is not used so far in this sample.
+The former is used in the `firstRunUser` dialog to prompt the user right away for their locale and store it for all future sessions. The latter is not used so far in this sample.
 
 ### Authentication
-### First Run
-### Events
-### Backchannel
-{Set DIRECT_LINE_SECRET environment variable
+{discuss authenticationService and sampleAuthDialog}
 
-### Locale Prompt
-### Sample Service
+### First Run
+{discuss `firstRunUser` and `firstRunConversation`}
+
+### Events
+
+### Backchannel
+{Set DIRECT_LINE_SECRET environment variable}
+
+### Data Service
