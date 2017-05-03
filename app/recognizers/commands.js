@@ -1,7 +1,7 @@
 //if the command is typed to the bot, the corresponding intent
 //will be triggered by the recognizer
 let commands = [
-    { text: 'login', intent: 'sampleAuthDialog' },
+    { text: 'auth', intent: 'sampleAuthDialog' },
     { text: 'logout', intent: 'logout' },
     { text: 'delete', intent: 'delete' },
     { text: 'choose locale', intent: 'chooseLocale' }

@@ -7,7 +7,9 @@
     "botauth": "^0.2.12",
     "botbuilder": "^3.8.0-beta6",
     "dotenv": "^4.0.0",
+    "express-session": "^1.15.2",
     "passport-mercadolibre": "0.0.2",
+    "passport-twitter": "^1.0.4",
     "readdir-enhanced": "^1.4.5",
     "restify": "^4.1.1"
   },

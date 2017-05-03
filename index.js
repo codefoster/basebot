@@ -2,7 +2,7 @@
 require('dotenv').config();
 let builder = require("botbuilder");
 let restify = require('restify');
-let auth = require('./auth');
+let authenticationService = require('./app/services/authenticationService');
 let utils = require('./app/helpers/utils');
 
 let connector = new builder.ChatConnector({
@@ -21,7 +21,9 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
-bot.auth = auth(server, bot);
+//authentication
+if(process.env.AUTH_PROVIDER_NAME)
+    bot.auth = authenticationService.initialize(server, bot);
 
 //recognizers
 utils.getFiles('./app/recognizers')
