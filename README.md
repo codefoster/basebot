@@ -85,3 +85,4 @@ The former is used in the `firstRunUser` dialog to prompt the user right away fo
 {Set DIRECT_LINE_SECRET environment variable}
 
 ### Data Service
+Most bots need to persist data, so we've created `mongoDataService` and `mongoDataDialog` as a sample. Use the `mongo` command to invoke the dialog and follow the menu to CRUD some widgets. Then check out the `mongoDataService` to see how to use Mongo in a bot.

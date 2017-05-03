@@ -1,11 +1,11 @@
 {
   "name": "basebot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
     "botauth": "^0.2.12",
-    "botbuilder": "^3.8.0-beta6",
+    "botbuilder": "^3.8.0-beta8",
     "dotenv": "^4.0.0",
     "mongodb": "^2.2.26",
     "passport-twitter": "^1.0.4",
