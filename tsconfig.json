@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": false,
+        "noImplicitAny": false,
+        "noEmitOnError": true,
+        "removeComments": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
