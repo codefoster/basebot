@@ -6,7 +6,10 @@
   "dependencies": {
     "botauth": "^0.2.12",
     "botbuilder": "^3.8.0-beta8",
-    "dotenv": "^4.0.0",
+    "botbuilder-cognitiveservices": "^1.1.0",
+
+    "ddotenv": "^4.0.0",
+
     "mongodb": "^2.2.26",
     "passport-twitter": "^1.0.4",
     "readdir-enhanced": "^1.4.5",
