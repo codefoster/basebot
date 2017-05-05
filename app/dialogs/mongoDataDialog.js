@@ -11,10 +11,10 @@ module.exports = function (name, bot) {
                 session.endDialog('no_mongo');
             else {
                 if(!hasSeenDialogHelp) {
-                    session.send('This sample dialog will only create a single widget, but it shows the basics of using mongo for data persistence. Type \"cancel\" to escape this dialog.');
+                    session.send("mongo_dialog_intro");
                     hasSeenDialogHelp = true;
                 }
-                builder.Prompts.choice(session, 'What do you want to do?', 'create|read|update|delete');
+                builder.Prompts.choice(session, "mongo_action_prompt", 'create|read|update|delete');
             }
         },
         function (session, result, next) {
@@ -24,27 +24,27 @@ module.exports = function (name, bot) {
                 case 'create':
                     mongoDataService.createWidget({ id: 1, name: 'widget 1' })
                         .then(r => {
-                            session.send('done');
+                            session.send("mongo_widget_added");
                             next();
                         });
                     break;
                 case 'read':
                     mongoDataService.readWidget(1)
                         .then(w => {
-                            session.send(w ? w.name : 'no widget');
+                            session.send(w ? w.name : "mongo_no_widgets");
                             next();
                         });
                     break;
                 case 'update':
                     mongoDataService.updateWidget({ id: 1, name: `widget 1 (${++c})` })
                         .then(w => {
-                            session.send('done');
+                            session.send("mongo_widget_updated");
                             next();
                         });
                     break;
                 case 'delete':
                     mongoDataService.deleteWidget(1).then(w => {
-                        session.send('done');
+                        session.send("Alright, it's gone");
                         next();
                     });
                     break;

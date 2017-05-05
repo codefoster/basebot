@@ -1,3 +1,13 @@
 {
+    "greeting": ["hello","hi","hello, there","well, hello","hey","hola"],
+    "confirm_data_delete": "Are you sure you want to delete all of your data?",
+    "data_deleted": ["Okay, it's gone", "Alright, deleted", "Done"],
     "things_i_can_say": "There are a few built-in commands that I understand. Here are some things you can say...",
+
+    "monogo_dialog_intro": "This sample dialog will only create a single widget, but it shows the basics of using mongo for data persistence. Type \"cancel\" to escape this dialog.",
+    "no_mongo": "MongoDB is either not configured or not able to connect right now.",
+    "mongo_action_prompt": "What do you want to do?",
+    "mongo_widget_added": "Widget added",
+    "monogo_no_widgets": "There are no widgets in the database",
+    "mongo_widget_updated": "Widget updated"
 }
