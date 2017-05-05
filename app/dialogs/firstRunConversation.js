@@ -16,7 +16,6 @@ module.exports = function (name, bot) {
 
             //do first run stuff
             //this is a good place to save session.message.address for proactive use later
-            session.send('firstRunConversation ran');
 
             next();
         },
