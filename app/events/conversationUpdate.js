@@ -7,7 +7,7 @@ module.exports = function (name, bot) {
             .forEach(m => {
                 var msg = new builder.Message()
                     .address(message.address)
-                    .text('conversation_update');
+                    .text("Hey, there. I'm basebot. I not really good for anything except to be a good starting point for whatever awesome bot you're looking to build.");
                 bot.send(msg);
             });
     })
