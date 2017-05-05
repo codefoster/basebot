@@ -1,0 +1,4 @@
+{
+    "conversation_update": "Hey, there. I'm basebot. I not really good for anything except to be a good starting point for whatever awesome bot you're looking to build.",
+    "no_mongo": "MongoDB is either not configured or not able to connect right now."
+}
