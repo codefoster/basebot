@@ -9,5 +9,5 @@ module.exports = function (name, bot) {
         msg.data.name = "backchannel message from bot";
         msg.data.value = session.message.text;
         session.endDialog(msg);
-    }).triggerAction({ matches: /backchannel/i })
+    }).triggerAction({ matches: name })
 }

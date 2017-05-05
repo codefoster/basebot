@@ -1,12 +1,14 @@
 //if the command is typed to the bot, the corresponding intent
 //will be triggered by the recognizer
+//in basebot, most of the dialogs are triggered by an intent of the exact same name (i.e. sampleDialog)
+
 let commands = [
     { text: 'help', intent: 'help' },
     { text: 'sample', intent: 'sampleDialog' },
-    { text: 'auth', intent: 'sampleAuthDialog' },
+    { text: 'login', intent: 'sampleAuthDialog' },
     { text: 'logout', intent: 'logout' },
     { text: 'delete', intent: 'delete' },
-    { text: 'choose locale', intent: 'chooseLocale' },
+    { text: 'locale', intent: 'chooseLocale' },
     { text: 'mongo', intent: 'mongoDataDialog'}
 ];
 
