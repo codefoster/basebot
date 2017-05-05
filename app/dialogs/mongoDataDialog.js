@@ -7,11 +7,15 @@ let hasSeenDialogHelp = false;
 module.exports = function (name, bot) {
     bot.dialog(`/${name}`, [
         function (session, args, next) {
-            if(!hasSeenDialogHelp) {
-                session.send('This sample dialog will only create a single widget, but it shows the basics of using mongo for data persistence. Type \"cancel\" to escape this dialog.');
-                hasSeenDialogHelp = true;
+            if(!mongoDataService.isConnected)
+                session.endDialog('no_mongo');
+            else {
+                if(!hasSeenDialogHelp) {
+                    session.send('This sample dialog will only create a single widget, but it shows the basics of using mongo for data persistence. Type \"cancel\" to escape this dialog.');
+                    hasSeenDialogHelp = true;
+                }
+                builder.Prompts.choice(session, 'What do you want to do?', 'create|read|update|delete');
             }
-            builder.Prompts.choice(session, 'What do you want to do?', 'create|read|update|delete');
         },
         function (session, result, next) {
             let choice = result.response.entity;
