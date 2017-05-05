@@ -56,7 +56,7 @@ module.exports = function (name, bot) {
 
     ])
         .triggerAction({ matches: name })
-        .cancelAction('cancelMongo', 'mongo menu cancelled', {
+        .cancelAction('cancelMongo', "mongo_menu_cancelled", {
             matches: /^cancel/i,
         })
 };
