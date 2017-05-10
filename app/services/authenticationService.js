@@ -1,8 +1,10 @@
 let botauth = require('botauth');
-let authStrategy = require(`passport-${process.env.AUTH_PROVIDER_NAME}`).Strategy;
+let tryRequire = require('try-require');
+let auth = tryRequire(`passport-${process.env.AUTH_PROVIDER_NAME}`);
 let session = require('express-session');
 
 let authenticator;
+let authStrategy;
 
 let botAuthOptions = {
     baseUrl: `https://${process.env.WEBSITE_HOSTNAME}`,
@@ -27,6 +29,9 @@ let strategyVerifyFunction = (accessToken, refreshToken, profile, done) => {
 
 module.exports = {
     initialize: (server, bot) => {
+        if (typeof auth === 'undefined') return null;
+
+        authStrategy = auth.Strategy;
         server.use(session({ secret: process.env.BOTAUTH_SECRET }));
         authenticator = new botauth.BotAuthenticator(server, bot, botAuthOptions)
             .provider(process.env.AUTH_PROVIDER_NAME, factory);
