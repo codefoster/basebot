@@ -1,32 +1,39 @@
 {
-  "name": "basebot",
-  "version": "0.1.1",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "botauth": "^0.2.12",
-    "botbuilder": "^3.8.0-beta8",
-    "botbuilder-cognitiveservices": "^1.1.0",
-    "dotenv": "^4.0.0",
-    "express-session": "^1.15.2",
-    "mongodb": "^2.2.26",
-    "passport-twitter": "^1.0.4",
-    "readdir-enhanced": "^1.4.5",
-    "restify": "^4.1.1"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/codefoster/basebot.git"
-  },
-  "keywords": [],
-  "author": "Jeremy Foster <jeremy.foster@live.com> (http://codefoster.com)",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/codefoster/basebot/issues"
-  },
-  "homepage": "https://github.com/codefoster/basebot#readme"
+    "name": "basebot",
+    "version": "1.0.0",
+    "description": "Convention-first Bot",
+    "author": "Generated using Microsoft Bot Builder Yeoman generator v4.2.6",
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "scripts": {
+        "build": "node_modules/.bin/tsc --build",
+        "lint": "node_modules/.bin/tslint -c tslint.json 'src/**/*.ts'",
+        "postinstall": "npm run build && node ./deploymentScripts/webConfigPrep.js",
+        "start": "node_modules/.bin/tsc --build && node ./lib/index.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "node_modules/.bin/nodemon --watch ./src -e ts --exec \"npm run start\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com"
+    },
+    "dependencies": {
+        "botbuilder": "^4.2.0",
+        "botbuilder-ai": "^4.2.0",
+        "botbuilder-core": "^4.2.0",
+        "botbuilder-dialogs": "^4.2.0",
+        "botframework-config": "^4.2.0",
+        "botframework-connector": "^4.2.0",
+        "botframework-schema": "^4.2.0",
+        "dotenv": "^6.1.0",
+        "replace": "^1.0.0",
+        "restify": "^7.2.3"
+    },
+    "devDependencies": {
+        "@types/dotenv": "6.1.0",
+        "@types/restify": "7.2.6",
+        "nodemon": "^1.18.7",
+        "tslint": "^5.11.0",
+        "typescript": "^3.1.6"
+    }
 }
