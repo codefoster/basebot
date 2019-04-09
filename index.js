@@ -22,8 +22,7 @@ server.use(restify.bodyParser());
 server.use(restify.queryParser());
 
 //authentication
-if(process.env.AUTH_PROVIDER_NAME)
-    bot.auth = authenticationService.initialize(server, bot);
+bot.auth = authenticationService.initialize(server, bot);
 
 //recognizers
 utils.getFiles('./app/recognizers')

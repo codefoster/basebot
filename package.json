@@ -12,11 +12,13 @@
     "mongodb": "^2.2.26",
     "passport-twitter": "^1.0.4",
     "readdir-enhanced": "^1.4.5",
-    "restify": "^4.1.1"
+    "restify": "^4.1.1",
+    "try-require": "^1.2.1"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
