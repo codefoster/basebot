@@ -4,10 +4,11 @@
 import { ActivityTypes, CardFactory, ConversationState, RecognizerResult, StatePropertyAccessor, TurnContext, UserState } from 'botbuilder';
 import { LuisRecognizer } from 'botbuilder-ai';
 import { DialogContext, DialogSet, DialogState, DialogTurnResult, DialogTurnStatus } from 'botbuilder-dialogs';
-import { BotConfiguration, LuisService } from 'botframework-config';
+import { LuisService } from 'botframework-config';
 
 import { GreetingDialog, UserProfile } from './dialogs/greeting';
 import { WelcomeCard } from './dialogs/welcome';
+import { BotServices } from './botservices';
 
 // Greeting Dialog ID
 const GREETING_DIALOG = 'greetingDialog';
@@ -57,32 +58,22 @@ export class BasicBot {
      * @param {UserState} userState property accessor
      * @param {BotConfiguration} botConfig contents of the .bot file
      */
-    constructor(conversationState: ConversationState, userState: UserState, botConfig: BotConfiguration) {
-        if (!conversationState) { throw new Error('Missing parameter.  conversationState is required'); }
-        if (!userState) { throw new Error('Missing parameter.  userState is required'); }
-        if (!botConfig) { throw new Error('Missing parameter.  botConfig is required'); }
+    constructor(botServices : BotServices) {
+        if (!botServices.conversationState) { throw new Error('Missing parameter.  conversationState is required'); }
+        if (!botServices.userState) { throw new Error('Missing parameter.  userState is required'); }
 
-        // add the LUIS recognizer
-        let luisConfig: LuisService;
-        luisConfig = botConfig.findServiceByNameOrId(LUIS_CONFIGURATION) as LuisService;
-        if (!luisConfig || !luisConfig.appId) { throw new Error('Missing LUIS configuration. Please follow README.MD to create required LUIS applications.\n\n'); }
-        this.luisRecognizer = new LuisRecognizer({
-          applicationId: luisConfig.appId,
-          // CAUTION: Its better to assign and use a subscription key instead of authoring key here.
-          endpoint: luisConfig.getEndpoint(),
-          endpointKey: luisConfig.authoringKey,
-        });
+        this.luisRecognizer = botServices.luisRecognizer;
 
         // Create the property accessors for user and conversation state
-        this.userProfileAccessor = userState.createProperty(USER_PROFILE_PROPERTY);
-        this.dialogState = conversationState.createProperty(DIALOG_STATE_PROPERTY);
+        this.userProfileAccessor = botServices.userState.createProperty(USER_PROFILE_PROPERTY);
+        this.dialogState = botServices.conversationState.createProperty(DIALOG_STATE_PROPERTY);
 
         // Create top-level dialog(s)
         this.dialogs = new DialogSet(this.dialogState);
         this.dialogs.add(new GreetingDialog(GREETING_DIALOG, this.userProfileAccessor));
 
-        this.conversationState = conversationState;
-        this.userState = userState;
+        this.conversationState = botServices.conversationState;
+        this.userState = botServices.userState;
     }
 
     /**

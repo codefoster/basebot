@@ -11,11 +11,9 @@ If you find this project valuable, please consider contributing your own best pr
 1. Create a file called `.env` in the root directory and add the following text...
 
     ```
-    MICROSOFT_APP_ID=
-    MICROSOFT_APP_PASSWORD=
-    LUIS_ENDPOINT_1_EN=
-    LUIS_ENDPOINT_1_ES=
-    LUIS_ENDPOINT_2=
+    LuisAppId=
+    LuisAPIHostName=
+    LuisAPIKey=
     WEBSITE_HOSTNAME=
     AUTH_PROVIDER_NAME=
     AUTH_PROVIDER_APP_ID=
