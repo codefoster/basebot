@@ -1,11 +1,13 @@
 import * as path from 'path';
 import { config } from 'dotenv';
 import { LuisRecognizer } from 'botbuilder-ai';
-import { ConversationState, MemoryStorage, UserState } from 'botbuilder';
+import { ConversationState, MemoryStorage, UserState, StatePropertyAccessor } from 'botbuilder';
+import { DialogLoader } from './dialogloader';
+
 
 export class BotServices {
   private _luisRecognizer: LuisRecognizer;
-
+  private _dialogLoader : DialogLoader;
   
 // Define a state store for your bot. See https://aka.ms/about-bot-state to learn more about using MemoryStorage.
 // A bot requires a state store to persist the dialog and user state between messages.
@@ -13,8 +15,13 @@ export class BotServices {
   private _userState : UserState;
 
   constructor() {
+    this._dialogLoader = new DialogLoader();
     this.loadLocalEnvironmentVariables();
     this.configureState();
+  }
+
+  get dialogLoader(): DialogLoader {
+    return this._dialogLoader;
   }
 
   configureState() {
