@@ -6,16 +6,14 @@ import { LuisRecognizer } from 'botbuilder-ai';
 import { DialogContext, DialogSet, DialogState, DialogTurnResult, DialogTurnStatus } from 'botbuilder-dialogs';
 import { LuisService } from 'botframework-config';
 
-import { GreetingDialog, UserProfile } from './dialogs/greeting';
 import { WelcomeCard } from './dialogs/welcome';
-import { BotServices } from './botservices';
+import { BotServices } from './services/botservices';
+import { GreetingDialog } from './dialogs/greeting/index';
 
-// Greeting Dialog ID
-const GREETING_DIALOG = 'greetingDialog';
 
 // State Accessor Properties
 const DIALOG_STATE_PROPERTY = 'dialogState';
-const USER_PROFILE_PROPERTY = 'greetingStateProperty';
+
 
 // this is the LUIS service type entry in the .bot file.
 const LUIS_CONFIGURATION = 'basebot-LUIS';
@@ -27,8 +25,6 @@ const HELP_INTENT = 'Help';
 const NONE_INTENT = 'None';
 
 // Supported LUIS Entities, defined in ./dialogs/greeting/resources/greeting.lu
-const USER_NAME_ENTITIES = ['userName', 'userName_paternAny'];
-const USER_LOCATION_ENTITIES = ['userLocation', 'userLocation_patternAny'];
 
 /**
  * Demonstrates the following concepts:
@@ -40,7 +36,6 @@ const USER_LOCATION_ENTITIES = ['userLocation', 'userLocation_patternAny'];
  *  Handle conversation interruptions
  */
 export class BasicBot {
-    private userProfileAccessor: StatePropertyAccessor<UserProfile>;
     private dialogState: StatePropertyAccessor<DialogState>;
     private luisRecognizer: LuisRecognizer;
     private readonly dialogs: DialogSet;
@@ -65,12 +60,12 @@ export class BasicBot {
         this.luisRecognizer = botServices.luisRecognizer;
 
         // Create the property accessors for user and conversation state
-        this.userProfileAccessor = botServices.userState.createProperty(USER_PROFILE_PROPERTY);
+       // this.userProfileAccessor = botServices.userState.createProperty(USER_PROFILE_PROPERTY);
         this.dialogState = botServices.conversationState.createProperty(DIALOG_STATE_PROPERTY);
 
         // Create top-level dialog(s)
         this.dialogs = new DialogSet(this.dialogState);
-        this.dialogs.add(new GreetingDialog(GREETING_DIALOG, this.userProfileAccessor));
+        botServices.dialogLoader.loadDialogs(`${__dirname}/dialogs`,this.dialogs, botServices);
 
         this.conversationState = botServices.conversationState;
         this.userState = botServices.userState;
@@ -94,7 +89,7 @@ export class BasicBot {
 
             // Create a dialog context
             const dc = await this.dialogs.createContext(context);
-
+            
             // Perform a call to LUIS to retrieve results for the current activity message.
             const results = await this.luisRecognizer.recognize(context);
             const topIntent = LuisRecognizer.topIntent(results);
@@ -102,7 +97,8 @@ export class BasicBot {
             // update user profile property with any entities captured by LUIS
             // This could be user responding with their name or city while we are in the middle of greeting dialog,
             // or user saying something like 'i'm {userName}' while we have no active multi-turn dialog.
-            await this.updateUserProfile(results, context);
+            let greetingDialog = dc.findDialog("GreetingDialog") as GreetingDialog;
+            greetingDialog.updateUserProfile(results,context);
 
             // Based on LUIS topIntent, evaluate if we have an interruption.
             // Interruption here refers to user looking for help/ cancel existing dialog
@@ -126,7 +122,7 @@ export class BasicBot {
                     // Determine what we should do based on the top intent from LUIS.
                     switch (topIntent) {
                     case GREETING_INTENT:
-                      await dc.beginDialog(GREETING_DIALOG);
+                      await dc.beginDialog("GreetingDialog");
                       break;
                     case NONE_INTENT:
                     default:
@@ -205,37 +201,5 @@ export class BasicBot {
             return true; // this is an interruption
         }
         return false; // this is not an interruption
-    }
-
-    /**
-     * Helper function to update user profile with entities returned by LUIS.
-     *
-     * @param {LuisResults} luisResults - LUIS recognizer results
-     * @param {DialogContext} dc - dialog context
-     */
-    private updateUserProfile = async (luisResult: RecognizerResult, context: TurnContext) => {
-        // Do we have any entities?
-        if (Object.keys(luisResult.entities).length !== 1) {
-            // get greetingState object using the accessor
-            let userProfile = await this.userProfileAccessor.get(context);
-            if (userProfile === undefined) { userProfile = new UserProfile(); }
-            // see if we have any user name entities
-            USER_NAME_ENTITIES.forEach((name) => {
-                if (luisResult.entities[name] !== undefined) {
-                    const lowerCaseName = luisResult.entities[name][0];
-                    // capitalize and set user name
-                    userProfile.name = lowerCaseName.charAt(0).toUpperCase() + lowerCaseName.substr(1);
-                }
-            });
-            USER_LOCATION_ENTITIES.forEach((city) => {
-                if (luisResult.entities[city] !== undefined) {
-                    const lowerCaseCity = luisResult.entities[city][0];
-                    // capitalize and set user name
-                    userProfile.city = lowerCaseCity.charAt(0).toUpperCase() + lowerCaseCity.substr(1);
-                }
-            });
-            // set the new values
-            await this.userProfileAccessor.set(context, userProfile);
-        }
     }
 }

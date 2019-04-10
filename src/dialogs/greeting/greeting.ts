@@ -1,8 +1,9 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 // greeting.js defines the greeting dialog
-import { StatePropertyAccessor, TurnContext } from 'botbuilder';
+import { StatePropertyAccessor, TurnContext, RecognizerResult } from 'botbuilder';
 import { ComponentDialog, DialogContext, PromptValidatorContext, TextPrompt, WaterfallDialog, WaterfallStepContext } from 'botbuilder-dialogs';
+import { BotServices } from '../../services/botservices';
 
 // User state for greeting dialog
 import { UserProfile } from './userProfile';
@@ -20,6 +21,10 @@ const CITY_PROMPT = 'cityPrompt';
 
 const VALIDATION_SUCCEEDED = true;
 const VALIDATION_FAILED = !VALIDATION_SUCCEEDED;
+const USER_PROFILE_PROPERTY = 'greetingStateProperty';
+const USER_NAME_ENTITIES = ['userName', 'userName_paternAny'];
+const USER_LOCATION_ENTITIES = ['userLocation', 'userLocation_patternAny'];
+
 
 /**
  * Demonstrates the following concepts:
@@ -34,12 +39,12 @@ const VALIDATION_FAILED = !VALIDATION_SUCCEEDED;
 export class GreetingDialog extends ComponentDialog {
     private userProfileAccessor: StatePropertyAccessor<UserProfile>;
 
-    constructor(dialogId: string, userProfileAccessor: StatePropertyAccessor<UserProfile>) {
+    constructor(dialogId: string, botServices : BotServices) {
       super(dialogId);
 
       // validate what was passed in
       if (!dialogId) { throw new Error('Missing parameter.  dialogId is required'); }
-      if (!userProfileAccessor) { throw new Error('Missing parameter.  userProfileAccessor is required'); }
+      if (!botServices) { throw new Error('Missing parameter.  botServices is required'); }
 
       // Add a water fall dialog with 4 steps.
       // The order of step function registration is important
@@ -54,7 +59,8 @@ export class GreetingDialog extends ComponentDialog {
       // Add text prompts for name and city
       this.addDialog(new TextPrompt(NAME_PROMPT, this.validateName));
       this.addDialog(new TextPrompt(CITY_PROMPT, this.validateCity));
-
+      
+      const userProfileAccessor = botServices.userState.createProperty(USER_PROFILE_PROPERTY);
       // Save off our state accessor for later use
       this.userProfileAccessor = userProfileAccessor;
     }
@@ -179,4 +185,37 @@ export class GreetingDialog extends ComponentDialog {
         await step.context.sendActivity(`You can always say 'My name is <your name> to reintroduce yourself to me.`);
         return await step.endDialog();
     }
+
+
+    /**
+     * Helper function to update user profile with entities returned by LUIS.
+     *
+     * @param {LuisResults} luisResults - LUIS recognizer results
+     * @param {DialogContext} dc - dialog context
+     */
+   public updateUserProfile = async (luisResult: RecognizerResult, context: TurnContext) => {
+       // Do we have any entities?
+       if (Object.keys(luisResult.entities).length !== 1) {
+           // get greetingState object using the accessor
+           let userProfile = await this.userProfileAccessor.get(context);
+           if (userProfile === undefined) { userProfile = new UserProfile(); }
+           // see if we have any user name entities
+           USER_NAME_ENTITIES.forEach((name) => {
+               if (luisResult.entities[name] !== undefined) {
+                   const lowerCaseName = luisResult.entities[name][0];
+                   // capitalize and set user name
+                   userProfile.name = lowerCaseName.charAt(0).toUpperCase() + lowerCaseName.substr(1);
+               }
+           });
+           USER_LOCATION_ENTITIES.forEach((city) => {
+               if (luisResult.entities[city] !== undefined) {
+                   const lowerCaseCity = luisResult.entities[city][0];
+                   // capitalize and set user name
+                   userProfile.city = lowerCaseCity.charAt(0).toUpperCase() + lowerCaseCity.substr(1);
+               }
+           });
+           // set the new values
+           await this.userProfileAccessor.set(context, userProfile);
+       }
+   }
 }

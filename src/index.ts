@@ -4,7 +4,7 @@
 import { config } from 'dotenv';
 import * as path from 'path';
 import * as restify from 'restify';
-import { BotServices } from './botservices';
+import { BotServices } from './services/botservices';
 
 // Import required bot services. See https://aka.ms/bot-services to learn more about the different parts of a bot.
 import { BotFrameworkAdapter } from 'botbuilder';
